@@ -1,5 +1,6 @@
 // Paleta de cores por modalidade
 export const sportColors = {
+  tenis: { bg: "hsl(0, 70%, 55%)", text: "hsl(0, 70%, 95%)" },
   padel: { bg: "hsl(210, 80%, 55%)", text: "hsl(210, 80%, 95%)" },
   futebol: { bg: "hsl(145, 65%, 45%)", text: "hsl(145, 65%, 95%)" },
   volei: { bg: "hsl(30, 85%, 55%)", text: "hsl(30, 85%, 95%)" },
@@ -8,6 +9,7 @@ export const sportColors = {
 };
 
 export const sportIcons = {
+  tenis: "Racquet",
   padel: "Racquet",
   futebol: "Goal",
   volei: "CircleDot",
@@ -189,8 +191,8 @@ export const testimonials = [
 
 // Estatísticas para apresentação
 export const stats = {
-  totalCourts: 20,
-  totalModalities: 5,
+  totalCourts: 15,
+  totalModalities: 6,
   availability: "24/7",
   occupationRate: 78,
   conflictReduction: 80,
@@ -393,12 +395,24 @@ export const adminFeatures = [
 // Modalidades suportadas
 export const sports = [
   {
+    id: "tenis",
+    name: "Tênis",
+    icon: "Racquet",
+    color: sportColors.tenis.bg,
+    textColor: sportColors.tenis.text,
+    courts: 2,
+    courtsDetail: "1 coberta + 1 externa",
+    sharedCourts: false,
+  },
+  {
     id: "padel",
     name: "Padel",
     icon: "Racquet",
     color: sportColors.padel.bg,
     textColor: sportColors.padel.text,
-    courts: 4,
+    courts: 2,
+    courtsDetail: "1 coberta + 1 externa",
+    sharedCourts: false,
   },
   {
     id: "futebol",
@@ -406,7 +420,9 @@ export const sports = [
     icon: "Goal",
     color: sportColors.futebol.bg,
     textColor: sportColors.futebol.text,
-    courts: 3,
+    courts: 1,
+    courtsDetail: "1 quadra exclusiva",
+    sharedCourts: false,
   },
   {
     id: "volei",
@@ -414,7 +430,10 @@ export const sports = [
     icon: "CircleDot",
     color: sportColors.volei.bg,
     textColor: sportColors.volei.text,
-    courts: 2,
+    courts: 10,
+    courtsDetail: "10 quadras de areia compartilhadas",
+    sharedCourts: true,
+    sharedWith: ["futevolei", "beachTenis"],
   },
   {
     id: "futevolei",
@@ -422,7 +441,10 @@ export const sports = [
     icon: "Waves",
     color: sportColors.futevolei.bg,
     textColor: sportColors.futevolei.text,
-    courts: 2,
+    courts: 10,
+    courtsDetail: "10 quadras de areia compartilhadas",
+    sharedCourts: true,
+    sharedWith: ["volei", "beachTenis"],
   },
   {
     id: "beachTenis",
@@ -430,7 +452,10 @@ export const sports = [
     icon: "Trophy",
     color: sportColors.beachTenis.bg,
     textColor: sportColors.beachTenis.text,
-    courts: 3,
+    courts: 10,
+    courtsDetail: "10 quadras de areia compartilhadas",
+    sharedCourts: true,
+    sharedWith: ["volei", "futevolei"],
   },
 ];
 
@@ -536,4 +561,86 @@ export const whatsappIntegration = {
 👤 João Silva
 
 Vaga disponível para mais 3 jogadores!`
+};
+
+// Critérios específicos por modalidade
+export const modalityCriteria = {
+  title: "Critérios Personalizados por Modalidade",
+  subtitle: "Cada esporte tem suas regras e limites específicos já praticados no clube",
+  description: "O sistema permite configurar critérios únicos para cada modalidade, respeitando as regras atuais do clube e garantindo organização e transparência.",
+  
+  examples: [
+    {
+      sport: "Tênis",
+      icon: "Racquet",
+      color: sportColors.tenis.bg,
+      criteria: [
+        "2 quadras (1 coberta, 1 externa)",
+        "Duração: 1h30 por reserva",
+        "Limite: 3 reservas por semana por associado",
+        "Prioridade para titulares em horários de pico",
+        "Cancelamento com 4h de antecedência"
+      ]
+    },
+    {
+      sport: "Padel",
+      icon: "Racquet",
+      color: sportColors.padel.bg,
+      criteria: [
+        "2 quadras (1 coberta, 1 externa)",
+        "Duração: 1h30 por reserva",
+        "Limite: 4 reservas por semana por associado",
+        "Sistema de lista de espera automática",
+        "Notificações no grupo WhatsApp do Padel"
+      ]
+    },
+    {
+      sport: "Futebol Society",
+      icon: "Goal",
+      color: sportColors.futebol.bg,
+      criteria: [
+        "1 quadra exclusiva",
+        "Duração: 1h por reserva",
+        "Reserva mínima de 10 jogadores",
+        "Limite: 2 reservas por semana por grupo",
+        "Preferência para peladas organizadas"
+      ]
+    },
+    {
+      sport: "Quadras de Areia (Compartilhadas)",
+      icon: "CircleDot",
+      color: sportColors.volei.bg,
+      criteria: [
+        "10 quadras polivalentes",
+        "Uso para Vôlei, Futevôlei e Beach Tênis",
+        "Sistema de rotatividade entre modalidades",
+        "Duração variável: 1h a 2h conforme modalidade",
+        "Critérios específicos de marcação por esporte",
+        "Limite de reservas por modalidade"
+      ]
+    }
+  ],
+  
+  benefits: [
+    {
+      icon: "Settings",
+      title: "Configuração Individual",
+      description: "Cada modalidade tem suas próprias regras e limites"
+    },
+    {
+      icon: "RefreshCw",
+      title: "Rotatividade Inteligente",
+      description: "Sistema gerencia automaticamente o compartilhamento das quadras de areia"
+    },
+    {
+      icon: "Shield",
+      title: "Respeita Regras Atuais",
+      description: "Implementamos exatamente os critérios já praticados no clube"
+    },
+    {
+      icon: "Users",
+      title: "Prioridades por Categoria",
+      description: "Titulares, dependentes e visitantes com níveis de acesso diferentes"
+    }
+  ]
 };

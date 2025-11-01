@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { LucideIcon } from "lucide-react";
 import * as Icons from "lucide-react";
 
@@ -8,11 +9,15 @@ interface SportCardProps {
   color: string;
   textColor: string;
   courts?: number;
+  courtsDetail?: string;
+  sharedCourts?: boolean;
+  sharedWith?: string[];
+  showDetails?: boolean;
   onClick?: () => void;
   selected?: boolean;
 }
 
-const SportCard = ({ name, icon, color, textColor, courts, onClick, selected }: SportCardProps) => {
+const SportCard = ({ name, icon, color, textColor, courts, courtsDetail, sharedCourts, showDetails, onClick, selected }: SportCardProps) => {
   const Icon = (Icons as any)[icon] as LucideIcon;
 
   return (
@@ -29,9 +34,19 @@ const SportCard = ({ name, icon, color, textColor, courts, onClick, selected }: 
           {name}
         </h3>
         {courts !== undefined && (
-          <p className="text-sm" style={{ color: textColor }}>
+          <p className="text-sm font-semibold" style={{ color: textColor }}>
             {courts} {courts === 1 ? "quadra" : "quadras"}
           </p>
+        )}
+        {showDetails && courtsDetail && (
+          <p className="text-xs" style={{ color: textColor, opacity: 0.9 }}>
+            {courtsDetail}
+          </p>
+        )}
+        {showDetails && sharedCourts && (
+          <Badge variant="secondary" className="mt-2 bg-white/20 text-white border-white/30">
+            Compartilhadas
+          </Badge>
         )}
       </CardContent>
     </Card>

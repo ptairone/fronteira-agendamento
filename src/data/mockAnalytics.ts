@@ -11,11 +11,12 @@ export const weeklyOccupation = [
 ];
 
 export const reservationsByModality = [
-  { sport: "Padel", reservas: 145, fill: "hsl(210, 80%, 55%)" },
-  { sport: "Futebol", reservas: 98, fill: "hsl(145, 65%, 45%)" },
-  { sport: "Vôlei", reservas: 76, fill: "hsl(30, 85%, 55%)" },
-  { sport: "Futevôlei", reservas: 54, fill: "hsl(45, 90%, 60%)" },
-  { sport: "Beach Tênis", reservas: 68, fill: "hsl(270, 70%, 60%)" },
+  { sport: "Tênis", reservas: 87, fill: "hsl(0, 70%, 55%)" },
+  { sport: "Padel", reservas: 112, fill: "hsl(210, 80%, 55%)" },
+  { sport: "Futebol", reservas: 68, fill: "hsl(145, 65%, 45%)" },
+  { sport: "Vôlei", reservas: 62, fill: "hsl(30, 85%, 55%)" },
+  { sport: "Futevôlei", reservas: 48, fill: "hsl(45, 90%, 60%)" },
+  { sport: "Beach Tênis", reservas: 64, fill: "hsl(270, 70%, 60%)" },
 ];
 
 export const timeDistribution = [
@@ -75,7 +76,7 @@ export const topUsers = [
     position: 2,
     name: "Pedro Almeida",
     reservations: 24,
-    favoriteSport: "Futebol Society",
+    favoriteSport: "Tênis",
     avatar: "PA",
   },
   {

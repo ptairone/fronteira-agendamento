@@ -9,7 +9,8 @@ import TestimonialCard from "@/components/presentation/TestimonialCard";
 import PlatformCard from "@/components/presentation/PlatformCard";
 import WhatsAppIntegrationSection from "@/components/presentation/WhatsAppIntegrationSection";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Phone, Mail, Smartphone } from "lucide-react";
+import { ArrowRight, Phone, Mail, Smartphone, Info, CheckCircle2 } from "lucide-react";
+import ModalityCriteriaCard from "@/components/presentation/ModalityCriteriaCard";
 import logo from "@/assets/logo.jpeg";
 import heroBg from "@/assets/hero-bg.jpg";
 import {
@@ -23,6 +24,7 @@ import {
   stats,
   platforms,
   whatsappIntegration,
+  modalityCriteria,
 } from "@/data/mockData";
 
 const Landing = () => {
@@ -167,27 +169,90 @@ const Landing = () => {
       <section className="py-20 px-4 bg-background">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Modalidades Suportadas</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Modalidades do Clube</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Sistema flexível e expansível para qualquer tipo de esporte
+              6 modalidades esportivas com infraestrutura completa
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          
+          {/* Destaque da Estrutura Total */}
+          <div className="mb-12 p-6 bg-accent/30 rounded-lg border-2 border-primary/20">
+            <div className="text-center">
+              <h3 className="text-2xl font-bold mb-4">Infraestrutura do Clube</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                  <p className="text-4xl font-bold text-primary">15</p>
+                  <p className="text-muted-foreground">Quadras Totais</p>
+                </div>
+                <div>
+                  <p className="text-4xl font-bold text-primary">6</p>
+                  <p className="text-muted-foreground">Modalidades</p>
+                </div>
+                <div>
+                  <p className="text-4xl font-bold text-primary">3</p>
+                  <p className="text-muted-foreground">Quadras Cobertas</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {sports.map((sport) => (
               <SportCard
                 key={sport.id}
-                name={sport.name}
-                icon={sport.icon}
-                color={sport.color}
-                textColor={sport.textColor}
-                courts={sport.courts}
+                {...sport}
+                showDetails={true}
               />
             ))}
           </div>
-          <div className="text-center mt-8">
-            <p className="text-muted-foreground">
-              ✨ <strong>Sistema Expansível:</strong> Adicione novas modalidades conforme necessário
+
+          {/* Nota sobre Quadras Compartilhadas */}
+          <div className="mt-8 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+            <div className="flex items-start gap-3">
+              <Info className="h-6 w-6 text-blue-500 mt-1 flex-shrink-0" />
+              <div>
+                <h4 className="font-bold text-lg mb-2">Sistema Inteligente de Quadras Compartilhadas</h4>
+                <p className="text-muted-foreground">
+                  As 10 quadras de areia são polivalentes e podem ser usadas para Vôlei, Futevôlei e Beach Tênis. 
+                  O sistema gerencia automaticamente a rotatividade e garante que cada modalidade tenha seu espaço 
+                  respeitando os critérios de marcação específicos.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Critérios por Modalidade */}
+      <section className="py-20 px-4 bg-accent/20">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-12">
+            <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-4">
+              <span className="text-primary font-semibold">FLEXIBILIDADE TOTAL</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {modalityCriteria.title}
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
+              {modalityCriteria.subtitle}
             </p>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              {modalityCriteria.description}
+            </p>
+          </div>
+
+          {/* Cards de Exemplos por Modalidade */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            {modalityCriteria.examples.map((example, index) => (
+              <ModalityCriteriaCard key={index} {...example} />
+            ))}
+          </div>
+
+          {/* Benefícios dos Critérios Personalizados */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {modalityCriteria.benefits.map((benefit, index) => (
+              <FeatureCard key={index} {...benefit} />
+            ))}
           </div>
         </div>
       </section>
