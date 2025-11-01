@@ -237,6 +237,18 @@ export const benefits = [
     title: "Gestão Unificada",
     description: "Todas as modalidades em um só lugar",
   },
+  {
+    icon: "Smartphone",
+    metric: "3 Plataformas",
+    title: "Acesso Multiplataforma",
+    description: "iOS, Android e Web com sincronização em tempo real",
+  },
+  {
+    icon: "MessageSquare",
+    metric: "100% Automático",
+    title: "Integração WhatsApp",
+    description: "Notificações automáticas nos grupos de cada modalidade",
+  },
 ];
 
 // Casos de uso
@@ -328,6 +340,16 @@ export const associateFeatures = [
     title: "Notificações Automáticas",
     description: "Receba lembretes sobre suas reservas.",
   },
+  {
+    icon: "Smartphone",
+    title: "Acesso Multiplataforma",
+    description: "Use no app iOS/Android ou acesse pelo navegador - você escolhe.",
+  },
+  {
+    icon: "MessageSquare",
+    title: "Notificações no WhatsApp",
+    description: "Fique informado sobre novas reservas no grupo da sua modalidade.",
+  },
 ];
 
 export const adminFeatures = [
@@ -360,6 +382,11 @@ export const adminFeatures = [
     icon: "Lock",
     title: "Gestão de Permissões",
     description: "Configure quem pode fazer o quê no sistema.",
+  },
+  {
+    icon: "Settings",
+    title: "Gerenciar Grupos WhatsApp",
+    description: "Conecte grupos de WhatsApp para cada modalidade e personalize notificações.",
   },
 ];
 
@@ -406,3 +433,107 @@ export const sports = [
     courts: 3,
   },
 ];
+
+// Plataformas disponíveis
+export const platforms = [
+  {
+    id: "ios",
+    name: "App iOS",
+    icon: "Smartphone",
+    description: "Disponível na App Store para iPhone e iPad",
+    badge: "Disponível",
+    features: [
+      "Notificações push em tempo real",
+      "Funciona offline",
+      "Face ID / Touch ID",
+      "Widgets na tela inicial"
+    ]
+  },
+  {
+    id: "android",
+    name: "App Android",
+    icon: "Smartphone",
+    description: "Disponível na Google Play Store",
+    badge: "Disponível",
+    features: [
+      "Notificações push em tempo real",
+      "Funciona offline",
+      "Biometria integrada",
+      "Widgets personalizáveis"
+    ]
+  },
+  {
+    id: "web",
+    name: "Versão Web",
+    icon: "Globe",
+    description: "Acesse de qualquer navegador",
+    badge: "Disponível",
+    features: [
+      "Sem instalação necessária",
+      "Funciona em qualquer dispositivo",
+      "Atualização automática",
+      "Acesso universal"
+    ]
+  }
+];
+
+// Integração WhatsApp
+export const whatsappIntegration = {
+  title: "Integração Inteligente com WhatsApp",
+  subtitle: "Notificações automáticas nos grupos de cada modalidade",
+  badge: "FUNCIONALIDADE PREMIUM",
+  description: "Sistema envia automaticamente notificações nos grupos do WhatsApp quando novas reservas são feitas, facilitando a organização e aumentando o engajamento.",
+  
+  steps: [
+    {
+      number: 1,
+      title: "Reserva Realizada",
+      description: "Associado faz reserva de quadra pelo app ou navegador",
+      icon: "Calendar"
+    },
+    {
+      number: 2,
+      title: "Notificação Automática",
+      description: "Sistema detecta a reserva e prepara mensagem personalizada",
+      icon: "Bell"
+    },
+    {
+      number: 3,
+      title: "Grupo Informado",
+      description: "Mensagem é enviada ao grupo do WhatsApp da modalidade",
+      icon: "MessageSquare"
+    }
+  ],
+  
+  benefits: [
+    {
+      icon: "Zap",
+      title: "Comunicação Instantânea",
+      description: "Todos ficam sabendo imediatamente sobre novas reservas"
+    },
+    {
+      icon: "Users",
+      title: "Organização de Peladas",
+      description: "Facilita encontrar parceiros para completar o time"
+    },
+    {
+      icon: "TrendingUp",
+      title: "Aumento do Engajamento",
+      description: "Reduz quadras vazias e aumenta participação"
+    },
+    {
+      icon: "Settings",
+      title: "Flexibilidade Total",
+      description: "Configure um grupo diferente para cada modalidade"
+    }
+  ],
+  
+  exampleMessage: `🎾 Nova Reserva - Padel
+
+📅 Quinta-feira, 25 Jan
+⏰ 19h00 - 20h30
+🏟️ Quadra 1
+👤 João Silva
+
+Vaga disponível para mais 3 jogadores!`
+};

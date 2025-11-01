@@ -6,8 +6,10 @@ import SportCard from "@/components/presentation/SportCard";
 import BenefitCard from "@/components/presentation/BenefitCard";
 import UseCaseCard from "@/components/presentation/UseCaseCard";
 import TestimonialCard from "@/components/presentation/TestimonialCard";
+import PlatformCard from "@/components/presentation/PlatformCard";
+import WhatsAppIntegrationSection from "@/components/presentation/WhatsAppIntegrationSection";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Phone, Mail } from "lucide-react";
+import { ArrowRight, Phone, Mail, Smartphone } from "lucide-react";
 import logo from "@/assets/logo.jpeg";
 import heroBg from "@/assets/hero-bg.jpg";
 import {
@@ -19,6 +21,8 @@ import {
   associateFeatures,
   adminFeatures,
   stats,
+  platforms,
+  whatsappIntegration,
 } from "@/data/mockData";
 
 const Landing = () => {
@@ -49,7 +53,7 @@ const Landing = () => {
           </h1>
           
           <p className="mb-8 text-center text-xl md:text-2xl text-white/90 animate-fade-in max-w-3xl">
-            Gerencie múltiplas modalidades, quadras e horários com eficiência e transparência total
+            Gerencie múltiplas modalidades com <strong>aplicativos nativos iOS e Android</strong> ou pelo <strong>navegador web</strong>. Sistema completo com <strong>notificações automáticas no WhatsApp</strong> para máxima praticidade no dia a dia.
           </p>
 
           {/* Estatísticas em Destaque */}
@@ -102,8 +106,65 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Modalidades Suportadas */}
+      {/* Disponibilidade Multiplataforma */}
       <section className="py-20 px-4 bg-muted/50">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Acesse de Qualquer Lugar, Em Qualquer Dispositivo</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Sistema totalmente multiplataforma para máxima praticidade no dia a dia
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {platforms.map((platform) => (
+              <PlatformCard key={platform.id} {...platform} />
+            ))}
+          </div>
+          
+          {/* Card de destaque - Sincronização */}
+          <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20">
+            <CardContent className="p-8 text-center">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <Smartphone className="h-8 w-8 text-primary" />
+                <span className="text-3xl font-bold">⟷</span>
+                <Smartphone className="h-8 w-8 text-primary rotate-90" />
+                <span className="text-3xl font-bold">⟷</span>
+                <Smartphone className="h-8 w-8 text-primary rotate-180" />
+              </div>
+              <h3 className="text-2xl font-bold mb-2">Sincronização em Tempo Real</h3>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                Suas reservas e dados sincronizam automaticamente entre todos os dispositivos. 
+                Reserve no celular, confira no computador - tudo sempre atualizado!
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6 max-w-3xl mx-auto">
+                <div className="text-center">
+                  <div className="text-3xl mb-2">✅</div>
+                  <p className="text-sm text-muted-foreground">Acesso 24/7</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl mb-2">📱</div>
+                  <p className="text-sm text-muted-foreground">Apps Nativos</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl mb-2">🔔</div>
+                  <p className="text-sm text-muted-foreground">Notificações Push</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl mb-2">📶</div>
+                  <p className="text-sm text-muted-foreground">Funciona Offline</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl mb-2">🌐</div>
+                  <p className="text-sm text-muted-foreground">Acesso Web</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Modalidades Suportadas */}
+      <section className="py-20 px-4 bg-background">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Modalidades Suportadas</h2>
@@ -165,6 +226,9 @@ const Landing = () => {
           </Tabs>
         </div>
       </section>
+
+      {/* Integração WhatsApp */}
+      <WhatsAppIntegrationSection {...whatsappIntegration} />
 
       {/* Demonstração Interativa */}
       <section id="demos" className="py-20 px-4 bg-muted/50">
