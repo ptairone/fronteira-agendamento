@@ -15,10 +15,10 @@ const PlatformCard = ({ name, icon, description, badge, features }: PlatformCard
   const Icon = (Icons as any)[icon] as LucideIcon;
 
   return (
-    <Card className="hover:shadow-lg transition-all duration-300 hover:scale-105">
+    <Card className="card-3d gradient-border group overflow-hidden">
       <CardContent className="p-4 sm:p-6 space-y-2 sm:space-y-4">
         <div className="flex items-center justify-between">
-          {Icon && <Icon className="h-8 w-8 sm:h-12 sm:w-12 text-primary" />}
+          {Icon && <Icon className="h-8 w-8 sm:h-12 sm:w-12 text-primary group-hover:scale-110 transition-transform duration-300" />}
           <Badge variant="secondary" className="text-xs">{badge}</Badge>
         </div>
         <div>

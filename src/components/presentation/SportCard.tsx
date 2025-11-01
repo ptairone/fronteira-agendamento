@@ -22,14 +22,14 @@ const SportCard = ({ name, icon, color, textColor, courts, courtsDetail, sharedC
 
   return (
     <Card
-      className={`cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105 ${
+      className={`cursor-pointer card-3d group glow-effect ${
         selected ? "ring-2 ring-primary" : ""
       }`}
       onClick={onClick}
       style={{ backgroundColor: color }}
     >
       <CardContent className="p-4 sm:p-6 flex flex-col items-center text-center space-y-2 sm:space-y-3">
-        {Icon && <Icon className="h-8 w-8 sm:h-12 sm:w-12" style={{ color: textColor }} />}
+        {Icon && <Icon className="h-8 w-8 sm:h-12 sm:w-12 group-hover:scale-110 transition-transform duration-300" style={{ color: textColor }} />}
         <h3 className="text-base sm:text-xl font-bold" style={{ color: textColor }}>
           {name}
         </h3>
