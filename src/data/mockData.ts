@@ -762,6 +762,13 @@ export const investment = {
     description: "Para disponibilizar aplicativos nativos nas lojas oficiais",
     items: [
       {
+        platform: "Hospedagem VPS",
+        value: "R$ 400/mês",
+        type: "Mensalidade",
+        icon: "Server",
+        note: "Serviço de hospedagem VPS para manter o sistema funcionando 24/7"
+      },
+      {
         platform: "Apple App Store (iOS)",
         value: "~R$ 650/ano",
         type: "Assinatura anual",
