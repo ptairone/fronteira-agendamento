@@ -576,7 +576,7 @@ export const modalityCriteria = {
       color: sportColors.tenis.bg,
       criteria: [
         "2 quadras (1 coberta, 1 externa)",
-        "Duração: 1h30 por reserva",
+        "Duração: 1 hora por reserva",
         "Limite: 3 reservas por semana por associado",
         "Prioridade para titulares em horários de pico",
         "Cancelamento com 4h de antecedência"
@@ -588,8 +588,9 @@ export const modalityCriteria = {
       color: sportColors.padel.bg,
       criteria: [
         "2 quadras (1 coberta, 1 externa)",
-        "Duração: 1h30 por reserva",
-        "Limite: 4 reservas por semana por associado",
+        "Duração: 1 hora por reserva",
+        "Marcação por ordem de chegada",
+        "Limite: 2 marcações por associado",
         "Sistema de lista de espera automática",
         "Notificações no grupo WhatsApp do Padel"
       ]
