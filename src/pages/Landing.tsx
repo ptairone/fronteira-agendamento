@@ -10,7 +10,7 @@ import PlatformCard from "@/components/presentation/PlatformCard";
 import WhatsAppIntegrationSection from "@/components/presentation/WhatsAppIntegrationSection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Phone, Mail, Smartphone, Info, CheckCircle2, CreditCard, Calendar, ShieldCheck, Code, TestTube, Rocket, MessageCircle, Database, BarChart, Headphones, GraduationCap, TrendingDown, Clock, AlertCircle, ThumbsUp, ChevronDown } from "lucide-react";
+import { ArrowRight, Phone, Mail, Smartphone, Info, CheckCircle2, CreditCard, Calendar, ShieldCheck, Code, TestTube, Rocket, MessageCircle, Database, BarChart, Headphones, GraduationCap, TrendingDown, Clock, AlertCircle, ThumbsUp, ChevronDown, Mic } from "lucide-react";
 import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import ModalityCriteriaCard from "@/components/presentation/ModalityCriteriaCard";
@@ -18,7 +18,9 @@ import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { AnimatedSection, AnimatedItem } from "@/components/ui/animated-section";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { BackToTop } from "@/components/ui/back-to-top";
+import { VoiceAssistant } from "@/components/VoiceAssistant";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import logo from "@/assets/logo.jpeg";
 import heroBg from "@/assets/hero-bg.jpg";
 import {
@@ -38,6 +40,7 @@ import {
 
 const Landing = () => {
   const navigate = useNavigate();
+  const [voiceAssistantOpen, setVoiceAssistantOpen] = useState(false);
 
   return (
     <div className="min-h-screen w-full overflow-hidden bg-background">
@@ -125,14 +128,23 @@ const Landing = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
+            className="flex flex-col sm:flex-row gap-4"
           >
             <Button
               size="lg"
               onClick={() => document.getElementById("demos")?.scrollIntoView({ behavior: "smooth" })}
               className="text-lg px-8 py-6 h-auto group relative overflow-hidden"
             >
-              <span className="relative z-10">Explorar Demonstração Interativa</span>
+              <span className="relative z-10">Explorar Demonstração</span>
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+            <Button
+              size="lg"
+              onClick={() => setVoiceAssistantOpen(true)}
+              className="text-lg px-8 py-6 h-auto group relative overflow-hidden bg-primary/90 hover:bg-primary border-2 border-white/20 glow-effect"
+            >
+              <Mic className="mr-2 h-5 w-5" />
+              <span className="relative z-10">Demo com IA (Voz)</span>
             </Button>
           </motion.div>
 
@@ -746,6 +758,8 @@ const Landing = () => {
           opacity: 0;
         }
       `}</style>
+      
+      <VoiceAssistant open={voiceAssistantOpen} onOpenChange={setVoiceAssistantOpen} />
     </div>
   );
 };
