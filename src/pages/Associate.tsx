@@ -1,19 +1,22 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import Navigation from "@/components/Navigation";
+import DemoBadge from "@/components/presentation/DemoBadge";
+import SportCard from "@/components/presentation/SportCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import { Calendar, Clock } from "lucide-react";
 import { toast } from "sonner";
-import logo from "@/assets/logo.jpeg";
+import { sports as sportsData, sportColors, mockReservations } from "@/data/mockData";
 
-const sports = [
-  { id: "padel", name: "Padel", courts: ["Quadra 1", "Quadra 2"] },
-  { id: "futebol", name: "Futebol Society 7", courts: ["Campo 1"] },
-  { id: "volei", name: "Vôlei de Areia", courts: ["Quadra A", "Quadra B"] },
-  { id: "futevolei", name: "Futevôlei", courts: ["Quadra A"] },
-  { id: "beach-tenis", name: "Beach Tênis", courts: ["Quadra 1", "Quadra 2", "Quadra 3"] },
-];
+const sports = sportsData.map(s => ({
+  id: s.id,
+  name: s.name,
+  courts: Array.from({ length: s.courts }, (_, i) => `Quadra ${i + 1}`),
+  color: s.color,
+  textColor: s.textColor,
+  icon: s.icon,
+}));
 
 const timeSlots = [
   "07:00 - 08:00", "08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00",
@@ -23,7 +26,6 @@ const timeSlots = [
 ];
 
 const Associate = () => {
-  const navigate = useNavigate();
   const [selectedSport, setSelectedSport] = useState<string>("");
   const [selectedCourt, setSelectedCourt] = useState<string>("");
   const [reservedSlots, setReservedSlots] = useState<Set<string>>(new Set());
@@ -48,25 +50,15 @@ const Associate = () => {
   const selectedSportData = sports.find(s => s.id === selectedSport);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted p-4 md:p-8">
-      <div className="mx-auto max-w-6xl">
-        {/* Header */}
+    <div className="min-h-screen bg-background">
+      <Navigation />
+      <div className="container mx-auto p-6">
         <div className="mb-8 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <img src={logo} alt="Logo" className="h-16 w-16 rounded-full shadow-md" />
-            <div>
-              <h1 className="text-3xl font-bold text-primary">Painel do Associado</h1>
-              <p className="text-muted-foreground">Reserve suas quadras e horários</p>
-            </div>
+          <div>
+            <h1 className="text-4xl font-bold">Painel do Associado</h1>
+            <p className="text-muted-foreground mt-2">Reserve suas quadras e horários</p>
           </div>
-          <Button
-            onClick={() => navigate("/")}
-            variant="outline"
-            className="gap-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Voltar
-          </Button>
+          <DemoBadge />
         </div>
 
         {/* Selection Cards */}

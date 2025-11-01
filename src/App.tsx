@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Associate from "./pages/Associate";
 import Admin from "./pages/Admin";
+import Analytics from "./pages/Analytics";
+import Permissions from "./pages/Permissions";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +22,8 @@ const App = () => (
           <Route path="/" element={<Landing />} />
           <Route path="/associado" element={<Associate />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/permissions" element={<Permissions />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

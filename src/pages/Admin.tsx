@@ -1,13 +1,17 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import Navigation from "@/components/Navigation";
+import DemoBadge from "@/components/presentation/DemoBadge";
+import SportCard from "@/components/presentation/SportCard";
+import StatCard from "@/components/presentation/StatCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Settings, Plus, Trash2 } from "lucide-react";
+import { Settings, Plus, Trash2 } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import logo from "@/assets/logo.jpeg";
+import { sports as sportsData } from "@/data/mockData";
+import { useNavigate } from "react-router-dom";
 
 interface Sport {
   id: string;
@@ -17,13 +21,13 @@ interface Sport {
   courts: string[];
 }
 
-const initialSports: Sport[] = [
-  { id: "padel", name: "Padel", maxReservations: 2, gameDuration: 60, courts: ["Quadra 1", "Quadra 2"] },
-  { id: "futebol", name: "Futebol Society 7", maxReservations: 1, gameDuration: 90, courts: ["Campo 1"] },
-  { id: "volei", name: "Vôlei de Areia", maxReservations: 2, gameDuration: 60, courts: ["Quadra A", "Quadra B"] },
-  { id: "futevolei", name: "Futevôlei", maxReservations: 2, gameDuration: 60, courts: ["Quadra A"] },
-  { id: "beach-tenis", name: "Beach Tênis", maxReservations: 2, gameDuration: 60, courts: ["Quadra 1", "Quadra 2", "Quadra 3"] },
-];
+const initialSports: Sport[] = sportsData.map(s => ({
+  id: s.id,
+  name: s.name,
+  maxReservations: 2,
+  gameDuration: 60,
+  courts: Array.from({ length: s.courts }, (_, i) => `Quadra ${i + 1}`),
+}));
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -61,25 +65,29 @@ const Admin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted p-4 md:p-8">
-      <div className="mx-auto max-w-7xl">
-        {/* Header */}
+    <div className="min-h-screen bg-background">
+      <Navigation />
+      <div className="container mx-auto p-6">
         <div className="mb-8 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <img src={logo} alt="Logo" className="h-16 w-16 rounded-full shadow-md" />
-            <div>
-              <h1 className="text-3xl font-bold text-primary">Administração do Clube</h1>
-              <p className="text-muted-foreground">Gerencie esportes, quadras e configurações</p>
-            </div>
+          <div>
+            <h1 className="text-4xl font-bold">Administração do Clube</h1>
+            <p className="text-muted-foreground mt-2">Gerencie esportes, quadras e configurações</p>
           </div>
-          <Button
-            onClick={() => navigate("/")}
-            variant="outline"
-            className="gap-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Voltar
-          </Button>
+          <DemoBadge />
+        </div>
+
+        {/* Dashboard Analytics Preview */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold">Visão Geral</h2>
+            <Button variant="outline" onClick={() => navigate("/analytics")}>Ver Dashboard Completo</Button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <StatCard icon="CalendarCheck" value="128" label="Reservas este Mês" />
+            <StatCard icon="TrendingUp" value="78%" label="Taxa de Ocupação" />
+            <StatCard icon="Trophy" value="Padel" label="Esporte Mais Popular" />
+            <StatCard icon="Users" value="45" label="Associados Ativos" />
+          </div>
         </div>
 
         {/* Sports Grid */}
