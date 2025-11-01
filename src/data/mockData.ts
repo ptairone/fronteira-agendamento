@@ -644,3 +644,154 @@ export const modalityCriteria = {
     }
   ]
 };
+
+// Investment and Budget Information
+export const investment = {
+  title: "Investimento e Condições Comerciais",
+  subtitle: "Transparência total sobre valores, prazos e condições de pagamento",
+  
+  pricing: {
+    total: "R$ 15.000,00",
+    totalNumeric: 15000,
+    downPayment: {
+      percentage: 50,
+      value: "R$ 7.500,00",
+      valueNumeric: 7500,
+      description: "Entrada para início do projeto"
+    },
+    installments: {
+      quantity: 4,
+      value: "R$ 1.875,00",
+      valueNumeric: 1875,
+      description: "Parcelamento do saldo no cartão de crédito",
+      total: "R$ 7.500,00"
+    }
+  },
+  
+  timeline: {
+    title: "Cronograma de Entrega",
+    total: "35 dias úteis",
+    phases: [
+      {
+        name: "Desenvolvimento",
+        duration: "30 dias",
+        description: "Implementação completa do sistema com todas as funcionalidades",
+        icon: "Code"
+      },
+      {
+        name: "Fase de Testes",
+        duration: "5 dias",
+        description: "Testes práticos com o setor de esporte do clube",
+        icon: "TestTube"
+      },
+      {
+        name: "Go Live",
+        duration: "1 dia",
+        description: "Lançamento oficial e início das operações",
+        icon: "Rocket"
+      }
+    ]
+  },
+  
+  included: {
+    title: "O que está incluído no investimento",
+    items: [
+      {
+        icon: "Code",
+        title: "Desenvolvimento Completo",
+        description: "Sistema web responsivo com todas as funcionalidades apresentadas"
+      },
+      {
+        icon: "Smartphone",
+        title: "Versão Mobile-First",
+        description: "Interface otimizada para uso em smartphones e tablets"
+      },
+      {
+        icon: "MessageCircle",
+        title: "Integração WhatsApp",
+        description: "Notificações automáticas via WhatsApp Business API"
+      },
+      {
+        icon: "Database",
+        title: "Banco de Dados",
+        description: "Estrutura completa para gestão de dados e relatórios"
+      },
+      {
+        icon: "Users",
+        title: "Gestão Multi-Perfil",
+        description: "Sistema para associados, administradores e diferentes níveis de acesso"
+      },
+      {
+        icon: "BarChart",
+        title: "Dashboard Analítico",
+        description: "Painel de controle com estatísticas e métricas em tempo real"
+      },
+      {
+        icon: "Headphones",
+        title: "Suporte Técnico",
+        description: "Acompanhamento durante implementação e período de testes"
+      },
+      {
+        icon: "GraduationCap",
+        title: "Treinamento da Equipe",
+        description: "Capacitação do setor de esporte para usar o sistema"
+      }
+    ]
+  },
+  
+  additionalCosts: {
+    title: "Investimentos Adicionais (Valores à Parte)",
+    description: "Para disponibilizar aplicativos nativos nas lojas oficiais",
+    items: [
+      {
+        platform: "Apple App Store (iOS)",
+        value: "~R$ 650/ano",
+        type: "Assinatura anual",
+        icon: "Apple",
+        note: "Taxa cobrada pela Apple para publicar apps na App Store"
+      },
+      {
+        platform: "Google Play Store (Android)",
+        value: "~R$ 150",
+        type: "Pagamento único",
+        icon: "Smartphone",
+        note: "Taxa única cobrada pelo Google para publicar apps na Play Store"
+      }
+    ],
+    observation: "Estes valores são pagos diretamente às plataformas Apple e Google. O sistema web funciona perfeitamente em todos os dispositivos sem estes custos."
+  },
+  
+  benefits: [
+    {
+      icon: "TrendingDown",
+      title: "Redução de 70% em Ligações",
+      description: "Menos tempo da equipe ao telefone"
+    },
+    {
+      icon: "Clock",
+      title: "5 Horas Economizadas/Semana",
+      description: "Gestão automatizada libera a equipe"
+    },
+    {
+      icon: "AlertCircle",
+      title: "80% Menos Conflitos",
+      description: "Sistema elimina duplas reservas"
+    },
+    {
+      icon: "ThumbsUp",
+      title: "95% de Satisfação",
+      description: "Associados aprovam a transparência"
+    }
+  ],
+  
+  guarantee: {
+    title: "Garantias e Compromissos",
+    items: [
+      "Suporte técnico durante todo o período de implementação",
+      "Correção de bugs e ajustes durante a fase de testes",
+      "Documentação completa do sistema",
+      "Código-fonte limpo e bem documentado",
+      "Treinamento presencial ou remoto da equipe"
+    ]
+  }
+};

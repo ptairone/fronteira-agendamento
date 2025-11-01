@@ -9,7 +9,10 @@ import TestimonialCard from "@/components/presentation/TestimonialCard";
 import PlatformCard from "@/components/presentation/PlatformCard";
 import WhatsAppIntegrationSection from "@/components/presentation/WhatsAppIntegrationSection";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Phone, Mail, Smartphone, Info, CheckCircle2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, Phone, Mail, Smartphone, Info, CheckCircle2, CreditCard, Calendar, ShieldCheck, Code, TestTube, Rocket, MessageCircle, Database, BarChart, Headphones, GraduationCap, TrendingDown, Clock, AlertCircle, ThumbsUp } from "lucide-react";
+import * as Icons from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import ModalityCriteriaCard from "@/components/presentation/ModalityCriteriaCard";
 import logo from "@/assets/logo.jpeg";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -25,6 +28,7 @@ import {
   platforms,
   whatsappIntegration,
   modalityCriteria,
+  investment,
 } from "@/data/mockData";
 
 const Landing = () => {
@@ -408,32 +412,218 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Footer com CTAs */}
-      <section className="py-16 px-4 bg-primary text-primary-foreground">
-        <div className="container mx-auto max-w-4xl text-center space-y-8">
-          <h2 className="text-3xl md:text-4xl font-bold">
-            Pronto para Transformar Sua Gestão de Quadras?
-          </h2>
-          <p className="text-xl opacity-90">
-            Entre em contato conosco para uma demonstração personalizada
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" className="text-lg px-8 py-6 h-auto">
-              <Mail className="mr-2 h-5 w-5" />
-              Solicitar Orçamento
-            </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 py-6 h-auto bg-transparent border-white text-white hover:bg-white hover:text-primary">
-              <Phone className="mr-2 h-5 w-5" />
-              Agendar Demo Personalizada
-            </Button>
-          </div>
-          <div className="pt-8 border-t border-white/20">
-            <p className="text-sm opacity-75">
-              © 2025 Sistema de Gestão de Quadras. Todos os direitos reservados.
+      {/* Investment and Budget Section */}
+      <section className="py-20 px-4 bg-gradient-to-br from-primary/5 via-background to-primary/5">
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-12">
+            <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-4">
+              <span className="text-primary font-semibold">INVESTIMENTO</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {investment.title}
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              {investment.subtitle}
             </p>
+          </div>
+
+          {/* Pricing Card - Destaque Principal */}
+          <div className="max-w-4xl mx-auto mb-16">
+            <Card className="overflow-hidden border-2 border-primary/20 shadow-lg">
+              <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-8 text-center">
+                <h3 className="text-2xl font-bold mb-2">Valor do Projeto</h3>
+                <div className="text-6xl font-bold mb-4">{investment.pricing.total}</div>
+                <p className="text-lg opacity-90">Desenvolvimento completo do sistema de gestão</p>
+              </div>
+              
+              <CardContent className="p-8">
+                <div className="grid md:grid-cols-2 gap-8 mb-8">
+                  {/* Entrada */}
+                  <div className="text-center p-6 bg-accent/30 rounded-lg border border-primary/10">
+                    <CreditCard className="h-12 w-12 text-primary mx-auto mb-4" />
+                    <div className="text-sm text-muted-foreground mb-2">
+                      {investment.pricing.downPayment.percentage}% de Entrada
+                    </div>
+                    <div className="text-4xl font-bold text-primary mb-2">
+                      {investment.pricing.downPayment.value}
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {investment.pricing.downPayment.description}
+                    </p>
+                  </div>
+
+                  {/* Parcelamento */}
+                  <div className="text-center p-6 bg-accent/30 rounded-lg border border-primary/10">
+                    <Calendar className="h-12 w-12 text-primary mx-auto mb-4" />
+                    <div className="text-sm text-muted-foreground mb-2">
+                      Saldo Restante
+                    </div>
+                    <div className="text-4xl font-bold text-primary mb-2">
+                      {investment.pricing.installments.quantity}x {investment.pricing.installments.value}
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {investment.pricing.installments.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* ROI Benefits */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t">
+                  {investment.benefits.map((benefit, index) => {
+                    const Icon = (Icons as any)[benefit.icon] as LucideIcon;
+                    return (
+                      <div key={index} className="text-center">
+                        {Icon && <Icon className="h-8 w-8 text-primary mx-auto mb-2" />}
+                        <div className="font-bold text-lg mb-1">{benefit.title}</div>
+                        <div className="text-xs text-muted-foreground">{benefit.description}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Timeline */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-center mb-8">{investment.timeline.title}</h3>
+            <div className="max-w-5xl mx-auto">
+              <div className="grid md:grid-cols-3 gap-6">
+                {investment.timeline.phases.map((phase, index) => {
+                  const Icon = (Icons as any)[phase.icon] as LucideIcon;
+                  return (
+                    <Card key={index} className="relative overflow-hidden">
+                      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-primary/60" />
+                      <CardContent className="p-6 pt-8">
+                        <div className="flex items-center justify-between mb-4">
+                          {Icon && <Icon className="h-10 w-10 text-primary" />}
+                          <Badge variant="secondary" className="text-lg font-bold">
+                            {phase.duration}
+                          </Badge>
+                        </div>
+                        <h4 className="text-xl font-bold mb-2">{phase.name}</h4>
+                        <p className="text-muted-foreground">{phase.description}</p>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+              <div className="text-center mt-6">
+                <Badge variant="outline" className="text-lg px-6 py-2">
+                  <Clock className="mr-2 h-4 w-4" />
+                  Total: {investment.timeline.total} do contrato ao go-live
+                </Badge>
+              </div>
+            </div>
+          </div>
+
+          {/* What's Included */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-center mb-8">{investment.included.title}</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {investment.included.items.map((item, index) => (
+                <FeatureCard
+                  key={index}
+                  icon={item.icon}
+                  title={item.title}
+                  description={item.description}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Additional Costs */}
+          <div className="max-w-5xl mx-auto mb-16">
+            <Card className="border-orange-200 dark:border-orange-800 bg-orange-50/50 dark:bg-orange-900/10">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-3 mb-6">
+                  <Info className="h-6 w-6 text-orange-500 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="text-xl font-bold mb-2">{investment.additionalCosts.title}</h3>
+                    <p className="text-muted-foreground mb-6">{investment.additionalCosts.description}</p>
+                  </div>
+                </div>
+                
+                <div className="grid md:grid-cols-2 gap-6 mb-6">
+                  {investment.additionalCosts.items.map((item, index) => {
+                    const Icon = (Icons as any)[item.icon] as LucideIcon;
+                    return (
+                      <div key={index} className="p-4 bg-background rounded-lg border">
+                        <div className="flex items-center gap-3 mb-3">
+                          {Icon && <Icon className="h-8 w-8 text-orange-500" />}
+                          <div>
+                            <div className="font-bold">{item.platform}</div>
+                            <div className="text-sm text-muted-foreground">{item.type}</div>
+                          </div>
+                        </div>
+                        <div className="text-2xl font-bold text-orange-600 dark:text-orange-400 mb-2">
+                          {item.value}
+                        </div>
+                        <p className="text-xs text-muted-foreground">{item.note}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                  <p className="text-sm text-muted-foreground">
+                    <strong>Observação:</strong> {investment.additionalCosts.observation}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Guarantees */}
+          <div className="max-w-4xl mx-auto">
+            <Card>
+              <CardContent className="p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <ShieldCheck className="h-8 w-8 text-primary" />
+                  <h3 className="text-2xl font-bold">{investment.guarantee.title}</h3>
+                </div>
+                <ul className="space-y-3">
+                  {investment.guarantee.items.map((item, index) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
+
+      {/* Footer CTA */}
+      <section className="py-20 px-4 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Pronto para Revolucionar a Gestão das Suas Quadras?
+          </h2>
+          <p className="text-xl mb-8 opacity-90">
+            Entre em contato e descubra como o nosso sistema pode transformar a experiência dos seus associados
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" variant="secondary" className="text-lg">
+              <MessageCircle className="mr-2 h-5 w-5" />
+              Solicitar Proposta Formal
+            </Button>
+            <Button size="lg" variant="outline" className="text-lg bg-white/10 hover:bg-white/20 text-white border-white/30">
+              <Mail className="mr-2 h-5 w-5" />
+              Agendar Reunião Comercial
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 px-4 bg-muted/30 border-t">
+        <div className="container mx-auto max-w-7xl text-center text-muted-foreground">
+          <p>© 2024 Sistema de Gestão de Quadras. Todos os direitos reservados.</p>
+        </div>
+      </footer>
 
       <style>{`
         @keyframes fade-in {
