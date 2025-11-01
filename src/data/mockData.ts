@@ -669,6 +669,23 @@ export const investment = {
     }
   },
   
+  monthlyServer: {
+    title: "Mensalidade do Servidor",
+    value: "R$ 400,00",
+    valueNumeric: 400,
+    description: "Custo mensal para manter o servidor funcionando",
+    frequency: "mensal",
+    icon: "Server",
+    included: [
+      "Hospedagem do sistema",
+      "Banco de dados",
+      "Backup automático diário",
+      "Certificado SSL (segurança)",
+      "Monitoramento 24/7",
+      "Atualizações de segurança"
+    ]
+  },
+  
   timeline: {
     title: "Cronograma de Entrega",
     total: "35 dias úteis",
