@@ -246,14 +246,14 @@ const Landing = () => {
           </div>
 
           {/* Cards de Exemplos por Modalidade */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-12">
             {modalityCriteria.examples.map((example, index) => (
               <ModalityCriteriaCard key={index} {...example} />
             ))}
           </div>
 
           {/* Benefícios dos Critérios Personalizados */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {modalityCriteria.benefits.map((benefit, index) => (
               <FeatureCard key={index} {...benefit} />
             ))}
@@ -488,7 +488,7 @@ const Landing = () => {
           <div className="mb-16">
             <h3 className="text-2xl font-bold text-center mb-8">{investment.timeline.title}</h3>
             <div className="max-w-5xl mx-auto">
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {investment.timeline.phases.map((phase, index) => {
                   const Icon = (Icons as any)[phase.icon] as LucideIcon;
                   return (
