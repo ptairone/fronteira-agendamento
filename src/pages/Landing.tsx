@@ -246,7 +246,7 @@ const Landing = () => {
           </div>
 
           {/* Cards de Exemplos por Modalidade */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-6 md:gap-8 mb-12">
             {modalityCriteria.examples.map((example, index) => (
               <ModalityCriteriaCard key={index} {...example} />
             ))}
