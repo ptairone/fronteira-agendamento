@@ -16,18 +16,18 @@ const PlatformCard = ({ name, icon, description, badge, features }: PlatformCard
 
   return (
     <Card className="hover:shadow-lg transition-all duration-300 hover:scale-105">
-      <CardContent className="p-6 space-y-4">
+      <CardContent className="p-4 sm:p-6 space-y-2 sm:space-y-4">
         <div className="flex items-center justify-between">
-          {Icon && <Icon className="h-12 w-12 text-primary" />}
-          <Badge variant="secondary">{badge}</Badge>
+          {Icon && <Icon className="h-8 w-8 sm:h-12 sm:w-12 text-primary" />}
+          <Badge variant="secondary" className="text-xs">{badge}</Badge>
         </div>
         <div>
-          <h3 className="text-xl font-semibold mb-2">{name}</h3>
-          <p className="text-muted-foreground text-sm">{description}</p>
+          <h3 className="text-base sm:text-xl font-semibold mb-1 sm:mb-2">{name}</h3>
+          <p className="text-muted-foreground text-xs sm:text-sm">{description}</p>
         </div>
-        <div className="space-y-2 pt-2 border-t">
+        <div className="space-y-1 sm:space-y-2 pt-2 border-t">
           {features.map((feature, index) => (
-            <div key={index} className="flex items-center gap-2 text-sm">
+            <div key={index} className="flex items-center gap-2 text-xs sm:text-sm">
               <span className="text-primary">✓</span>
               <span className="text-muted-foreground">{feature}</span>
             </div>

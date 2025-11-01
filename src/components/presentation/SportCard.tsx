@@ -28,9 +28,9 @@ const SportCard = ({ name, icon, color, textColor, courts, courtsDetail, sharedC
       onClick={onClick}
       style={{ backgroundColor: color }}
     >
-      <CardContent className="p-6 flex flex-col items-center text-center space-y-3">
-        {Icon && <Icon className="h-12 w-12" style={{ color: textColor }} />}
-        <h3 className="text-xl font-bold" style={{ color: textColor }}>
+      <CardContent className="p-4 sm:p-6 flex flex-col items-center text-center space-y-2 sm:space-y-3">
+        {Icon && <Icon className="h-8 w-8 sm:h-12 sm:w-12" style={{ color: textColor }} />}
+        <h3 className="text-base sm:text-xl font-bold" style={{ color: textColor }}>
           {name}
         </h3>
         {courts !== undefined && (

@@ -54,32 +54,32 @@ const Landing = () => {
             />
           </div>
 
-          <h1 className="mb-4 text-center text-4xl md:text-5xl lg:text-6xl font-bold text-white animate-fade-in max-w-4xl">
+          <h1 className="mb-4 text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white animate-fade-in max-w-4xl">
             Sistema Completo de Gestão de Quadras Esportivas
           </h1>
           
-          <p className="mb-8 text-center text-xl md:text-2xl text-white/90 animate-fade-in max-w-3xl">
+          <p className="mb-8 text-center text-lg sm:text-xl md:text-2xl text-white/90 animate-fade-in max-w-3xl">
             Gerencie múltiplas modalidades com <strong>aplicativos nativos iOS e Android</strong> ou pelo <strong>navegador web</strong>. Sistema completo com <strong>notificações automáticas no WhatsApp</strong> para máxima praticidade no dia a dia.
           </p>
 
           {/* Estatísticas em Destaque */}
-          <div className="mb-12 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl w-full animate-fade-in">
+          <div className="mb-12 grid grid-cols-3 gap-3 sm:gap-6 max-w-3xl w-full animate-fade-in">
             <Card className="bg-white/10 backdrop-blur-md border-white/20">
-              <CardContent className="p-6 text-center">
-                <p className="text-4xl font-bold text-white">{stats.totalCourts}+</p>
-                <p className="text-white/80">Quadras Gerenciadas</p>
+              <CardContent className="p-3 sm:p-6 text-center">
+                <p className="text-2xl sm:text-4xl font-bold text-white">{stats.totalCourts}+</p>
+                <p className="text-xs sm:text-base text-white/80">Quadras Gerenciadas</p>
               </CardContent>
             </Card>
             <Card className="bg-white/10 backdrop-blur-md border-white/20">
-              <CardContent className="p-6 text-center">
-                <p className="text-4xl font-bold text-white">{stats.totalModalities}+</p>
-                <p className="text-white/80">Modalidades</p>
+              <CardContent className="p-3 sm:p-6 text-center">
+                <p className="text-2xl sm:text-4xl font-bold text-white">{stats.totalModalities}+</p>
+                <p className="text-xs sm:text-base text-white/80">Modalidades</p>
               </CardContent>
             </Card>
             <Card className="bg-white/10 backdrop-blur-md border-white/20">
-              <CardContent className="p-6 text-center">
-                <p className="text-4xl font-bold text-white">{stats.availability}</p>
-                <p className="text-white/80">Disponibilidade</p>
+              <CardContent className="p-3 sm:p-6 text-center">
+                <p className="text-2xl sm:text-4xl font-bold text-white">{stats.availability}</p>
+                <p className="text-xs sm:text-base text-white/80">Disponibilidade</p>
               </CardContent>
             </Card>
           </div>
@@ -99,12 +99,12 @@ const Landing = () => {
       <section className="py-20 px-4 bg-background">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Por Que Escolher Nosso Sistema?</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Por Que Escolher Nosso Sistema?</h2>
+            <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto">
               Uma solução completa que transforma a gestão de quadras esportivas
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {features.map((feature, index) => (
               <FeatureCard key={index} {...feature} />
             ))}
@@ -116,12 +116,12 @@ const Landing = () => {
       <section className="py-20 px-4 bg-muted/50">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Acesse de Qualquer Lugar, Em Qualquer Dispositivo</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Acesse de Qualquer Lugar, Em Qualquer Dispositivo</h2>
+            <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto">
               Sistema totalmente multiplataforma para máxima praticidade no dia a dia
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8">
             {platforms.map((platform) => (
               <PlatformCard key={platform.id} {...platform} />
             ))}
@@ -142,26 +142,26 @@ const Landing = () => {
                 Suas reservas e dados sincronizam automaticamente entre todos os dispositivos. 
                 Reserve no celular, confira no computador - tudo sempre atualizado!
               </p>
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-6 max-w-3xl mx-auto">
+              <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 sm:gap-4 mt-6 max-w-3xl mx-auto">
                 <div className="text-center">
-                  <div className="text-3xl mb-2">✅</div>
-                  <p className="text-sm text-muted-foreground">Acesso 24/7</p>
+                  <div className="text-2xl sm:text-3xl mb-1 sm:mb-2">✅</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Acesso 24/7</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl mb-2">📱</div>
-                  <p className="text-sm text-muted-foreground">Apps Nativos</p>
+                  <div className="text-2xl sm:text-3xl mb-1 sm:mb-2">📱</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Apps Nativos</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl mb-2">🔔</div>
-                  <p className="text-sm text-muted-foreground">Notificações Push</p>
+                  <div className="text-2xl sm:text-3xl mb-1 sm:mb-2">🔔</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Notificações Push</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl mb-2">📶</div>
-                  <p className="text-sm text-muted-foreground">Funciona Offline</p>
+                  <div className="text-2xl sm:text-3xl mb-1 sm:mb-2">📶</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Funciona Offline</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl mb-2">🌐</div>
-                  <p className="text-sm text-muted-foreground">Acesso Web</p>
+                  <div className="text-2xl sm:text-3xl mb-1 sm:mb-2">🌐</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Acesso Web</p>
                 </div>
               </div>
             </CardContent>
@@ -173,8 +173,8 @@ const Landing = () => {
       <section className="py-20 px-4 bg-background">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Modalidades do Clube</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Modalidades do Clube</h2>
+            <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto">
               6 modalidades esportivas com infraestrutura completa
             </p>
           </div>
@@ -183,18 +183,18 @@ const Landing = () => {
           <div className="mb-12 p-6 bg-accent/30 rounded-lg border-2 border-primary/20">
             <div className="text-center">
               <h3 className="text-2xl font-bold mb-4">Infraestrutura do Clube</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-3 gap-3 sm:gap-6">
                 <div>
-                  <p className="text-4xl font-bold text-primary">15</p>
-                  <p className="text-muted-foreground">Quadras Totais</p>
+                  <p className="text-2xl sm:text-4xl font-bold text-primary">15</p>
+                  <p className="text-xs sm:text-base text-muted-foreground">Quadras Totais</p>
                 </div>
                 <div>
-                  <p className="text-4xl font-bold text-primary">6</p>
-                  <p className="text-muted-foreground">Modalidades</p>
+                  <p className="text-2xl sm:text-4xl font-bold text-primary">6</p>
+                  <p className="text-xs sm:text-base text-muted-foreground">Modalidades</p>
                 </div>
                 <div>
-                  <p className="text-4xl font-bold text-primary">3</p>
-                  <p className="text-muted-foreground">Quadras Cobertas</p>
+                  <p className="text-2xl sm:text-4xl font-bold text-primary">3</p>
+                  <p className="text-xs sm:text-base text-muted-foreground">Quadras Cobertas</p>
                 </div>
               </div>
             </div>
@@ -231,16 +231,16 @@ const Landing = () => {
       <section className="py-20 px-4 bg-accent/20">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-4">
-              <span className="text-primary font-semibold">FLEXIBILIDADE TOTAL</span>
+            <div className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-primary/10 rounded-full mb-4">
+              <span className="text-primary font-semibold text-xs sm:text-sm">FLEXIBILIDADE TOTAL</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
               {modalityCriteria.title}
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
+            <p className="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-4">
               {modalityCriteria.subtitle}
             </p>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-sm sm:text-lg text-muted-foreground max-w-2xl mx-auto">
               {modalityCriteria.description}
             </p>
           </div>
@@ -253,7 +253,7 @@ const Landing = () => {
           </div>
 
           {/* Benefícios dos Critérios Personalizados */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6">
             {modalityCriteria.benefits.map((benefit, index) => (
               <FeatureCard key={index} {...benefit} />
             ))}
@@ -265,8 +265,8 @@ const Landing = () => {
       <section className="py-20 px-4 bg-background">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Funcionalidades por Perfil</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Funcionalidades por Perfil</h2>
+            <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto">
               Recursos específicos para associados e administradores
             </p>
           </div>
@@ -278,7 +278,7 @@ const Landing = () => {
             </TabsList>
             
             <TabsContent value="associates">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {associateFeatures.map((feature, index) => (
                   <FeatureCard key={index} {...feature} />
                 ))}
@@ -286,7 +286,7 @@ const Landing = () => {
             </TabsContent>
             
             <TabsContent value="admins">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {adminFeatures.map((feature, index) => (
                   <FeatureCard key={index} {...feature} />
                 ))}
@@ -303,13 +303,13 @@ const Landing = () => {
       <section id="demos" className="py-20 px-4 bg-muted/50">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Demonstração Interativa</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Demonstração Interativa</h2>
+            <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto">
               Explore todas as funcionalidades do sistema em ação
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
             <Card className="hover:shadow-xl transition-all cursor-pointer" onClick={() => navigate("/associado")}>
               <CardContent className="p-8 text-center space-y-4">
                 <div className="h-20 w-20 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
@@ -365,12 +365,12 @@ const Landing = () => {
       <section className="py-20 px-4 bg-background">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Benefícios Comprovados</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Benefícios Comprovados</h2>
+            <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto">
               Resultados reais que transformam a gestão esportiva
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {benefits.map((benefit, index) => (
               <BenefitCard key={index} {...benefit} />
             ))}
@@ -382,12 +382,12 @@ const Landing = () => {
       <section className="py-20 px-4 bg-muted/50">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Casos de Uso</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Casos de Uso</h2>
+            <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto">
               Solução perfeita para diversos tipos de organizações
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6">
             {useCases.map((useCase, index) => (
               <UseCaseCard key={index} {...useCase} />
             ))}
@@ -399,12 +399,12 @@ const Landing = () => {
       <section className="py-20 px-4 bg-background">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">O Que Nossos Clientes Dizem</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">O Que Nossos Clientes Dizem</h2>
+            <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto">
               Depoimentos de gestores satisfeitos
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
             {testimonials.map((testimonial) => (
               <TestimonialCard key={testimonial.id} {...testimonial} />
             ))}
@@ -416,13 +416,13 @@ const Landing = () => {
       <section className="py-20 px-4 bg-gradient-to-br from-primary/5 via-background to-primary/5">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
-            <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-4">
-              <span className="text-primary font-semibold">INVESTIMENTO</span>
+            <div className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-primary/10 rounded-full mb-4">
+              <span className="text-primary font-semibold text-xs sm:text-sm">INVESTIMENTO</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
               {investment.title}
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto">
               {investment.subtitle}
             </p>
           </div>
@@ -430,52 +430,52 @@ const Landing = () => {
           {/* Pricing Card - Destaque Principal */}
           <div className="max-w-4xl mx-auto mb-16">
             <Card className="overflow-hidden border-2 border-primary/20 shadow-lg">
-              <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-8 text-center">
-                <h3 className="text-2xl font-bold mb-2">Valor do Projeto</h3>
-                <div className="text-6xl font-bold mb-4">{investment.pricing.total}</div>
-                <p className="text-lg opacity-90">Desenvolvimento completo do sistema de gestão</p>
+              <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-4 sm:p-8 text-center">
+                <h3 className="text-lg sm:text-2xl font-bold mb-2">Valor do Projeto</h3>
+                <div className="text-4xl sm:text-6xl font-bold mb-2 sm:mb-4">{investment.pricing.total}</div>
+                <p className="text-sm sm:text-lg opacity-90">Desenvolvimento completo do sistema de gestão</p>
               </div>
               
-              <CardContent className="p-8">
-                <div className="grid md:grid-cols-2 gap-8 mb-8">
+              <CardContent className="p-4 sm:p-8">
+                <div className="grid md:grid-cols-2 gap-4 sm:gap-8 mb-4 sm:mb-8">
                   {/* Entrada */}
-                  <div className="text-center p-6 bg-accent/30 rounded-lg border border-primary/10">
-                    <CreditCard className="h-12 w-12 text-primary mx-auto mb-4" />
-                    <div className="text-sm text-muted-foreground mb-2">
+                  <div className="text-center p-4 sm:p-6 bg-accent/30 rounded-lg border border-primary/10">
+                    <CreditCard className="h-8 w-8 sm:h-12 sm:w-12 text-primary mx-auto mb-2 sm:mb-4" />
+                    <div className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">
                       {investment.pricing.downPayment.percentage}% de Entrada
                     </div>
-                    <div className="text-4xl font-bold text-primary mb-2">
+                    <div className="text-2xl sm:text-4xl font-bold text-primary mb-1 sm:mb-2">
                       {investment.pricing.downPayment.value}
                     </div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-xs sm:text-sm text-muted-foreground">
                       {investment.pricing.downPayment.description}
                     </p>
                   </div>
 
                   {/* Parcelamento */}
-                  <div className="text-center p-6 bg-accent/30 rounded-lg border border-primary/10">
-                    <Calendar className="h-12 w-12 text-primary mx-auto mb-4" />
-                    <div className="text-sm text-muted-foreground mb-2">
+                  <div className="text-center p-4 sm:p-6 bg-accent/30 rounded-lg border border-primary/10">
+                    <Calendar className="h-8 w-8 sm:h-12 sm:w-12 text-primary mx-auto mb-2 sm:mb-4" />
+                    <div className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">
                       Saldo Restante
                     </div>
-                    <div className="text-4xl font-bold text-primary mb-2">
+                    <div className="text-2xl sm:text-4xl font-bold text-primary mb-1 sm:mb-2">
                       {investment.pricing.installments.quantity}x {investment.pricing.installments.value}
                     </div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-xs sm:text-sm text-muted-foreground">
                       {investment.pricing.installments.description}
                     </p>
                   </div>
                 </div>
 
                 {/* ROI Benefits */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-4 sm:pt-6 border-t">
                   {investment.benefits.map((benefit, index) => {
                     const Icon = (Icons as any)[benefit.icon] as LucideIcon;
                     return (
                       <div key={index} className="text-center">
-                        {Icon && <Icon className="h-8 w-8 text-primary mx-auto mb-2" />}
-                        <div className="font-bold text-lg mb-1">{benefit.title}</div>
-                        <div className="text-xs text-muted-foreground">{benefit.description}</div>
+                        {Icon && <Icon className="h-6 w-6 sm:h-8 sm:w-8 text-primary mx-auto mb-1 sm:mb-2" />}
+                        <div className="font-bold text-sm sm:text-lg mb-0.5 sm:mb-1">{benefit.title}</div>
+                        <div className="text-[10px] sm:text-xs text-muted-foreground">{benefit.description}</div>
                       </div>
                     );
                   })}
@@ -486,31 +486,31 @@ const Landing = () => {
 
           {/* Timeline */}
           <div className="mb-16">
-            <h3 className="text-2xl font-bold text-center mb-8">{investment.timeline.title}</h3>
+            <h3 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-8">{investment.timeline.title}</h3>
             <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
                 {investment.timeline.phases.map((phase, index) => {
                   const Icon = (Icons as any)[phase.icon] as LucideIcon;
                   return (
                     <Card key={index} className="relative overflow-hidden">
                       <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-primary/60" />
-                      <CardContent className="p-6 pt-8">
-                        <div className="flex items-center justify-between mb-4">
-                          {Icon && <Icon className="h-10 w-10 text-primary" />}
-                          <Badge variant="secondary" className="text-lg font-bold">
+                      <CardContent className="p-4 sm:p-6 pt-6 sm:pt-8">
+                        <div className="flex items-center justify-between mb-2 sm:mb-4">
+                          {Icon && <Icon className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />}
+                          <Badge variant="secondary" className="text-sm sm:text-lg font-bold">
                             {phase.duration}
                           </Badge>
                         </div>
-                        <h4 className="text-xl font-bold mb-2">{phase.name}</h4>
-                        <p className="text-muted-foreground">{phase.description}</p>
+                        <h4 className="text-base sm:text-xl font-bold mb-1 sm:mb-2">{phase.name}</h4>
+                        <p className="text-xs sm:text-base text-muted-foreground">{phase.description}</p>
                       </CardContent>
                     </Card>
                   );
                 })}
               </div>
-              <div className="text-center mt-6">
-                <Badge variant="outline" className="text-lg px-6 py-2">
-                  <Clock className="mr-2 h-4 w-4" />
+              <div className="text-center mt-4 sm:mt-6">
+                <Badge variant="outline" className="text-sm sm:text-lg px-4 sm:px-6 py-1.5 sm:py-2">
+                  <Clock className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
                   Total: {investment.timeline.total} do contrato ao go-live
                 </Badge>
               </div>
@@ -519,8 +519,8 @@ const Landing = () => {
 
           {/* What's Included */}
           <div className="mb-16">
-            <h3 className="text-2xl font-bold text-center mb-8">{investment.included.title}</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <h3 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-8">{investment.included.title}</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6">
               {investment.included.items.map((item, index) => (
                 <FeatureCard
                   key={index}
@@ -599,19 +599,19 @@ const Landing = () => {
       {/* Footer CTA */}
       <section className="py-20 px-4 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
             Pronto para Revolucionar a Gestão das Suas Quadras?
           </h2>
-          <p className="text-xl mb-8 opacity-90">
+          <p className="text-base sm:text-xl mb-6 sm:mb-8 opacity-90">
             Entre em contato e descubra como o nosso sistema pode transformar a experiência dos seus associados
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" className="text-lg">
-              <MessageCircle className="mr-2 h-5 w-5" />
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <Button size="lg" variant="secondary" className="text-sm sm:text-lg">
+              <MessageCircle className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
               Solicitar Proposta Formal
             </Button>
-            <Button size="lg" variant="outline" className="text-lg bg-white/10 hover:bg-white/20 text-white border-white/30">
-              <Mail className="mr-2 h-5 w-5" />
+            <Button size="lg" variant="outline" className="text-sm sm:text-lg bg-white/10 hover:bg-white/20 text-white border-white/30">
+              <Mail className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
               Agendar Reunião Comercial
             </Button>
           </div>

@@ -13,10 +13,10 @@ const FeatureCard = ({ icon, title, description }: FeatureCardProps) => {
 
   return (
     <Card className="hover:shadow-lg transition-all duration-300 hover:scale-105">
-      <CardContent className="p-6 flex flex-col items-center text-center space-y-4">
-        {Icon && <Icon className="h-12 w-12 text-primary" />}
-        <h3 className="text-xl font-semibold">{title}</h3>
-        <p className="text-muted-foreground">{description}</p>
+      <CardContent className="p-4 sm:p-6 flex flex-col items-center text-center space-y-2 sm:space-y-4">
+        {Icon && <Icon className="h-8 w-8 sm:h-12 sm:w-12 text-primary" />}
+        <h3 className="text-base sm:text-xl font-semibold">{title}</h3>
+        <p className="text-sm sm:text-base text-muted-foreground">{description}</p>
       </CardContent>
     </Card>
   );
