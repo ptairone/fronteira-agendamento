@@ -10,7 +10,7 @@ import PlatformCard from "@/components/presentation/PlatformCard";
 import WhatsAppIntegrationSection from "@/components/presentation/WhatsAppIntegrationSection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Phone, Mail, Smartphone, Info, CheckCircle2, CreditCard, Calendar, ShieldCheck, Code, TestTube, Rocket, MessageCircle, Database, BarChart, Headphones, GraduationCap, TrendingDown, Clock, AlertCircle, ThumbsUp, ChevronDown, Mic } from "lucide-react";
+import { ArrowRight, Phone, Mail, Smartphone, Info, CheckCircle2, CreditCard, Calendar, ShieldCheck, Code, TestTube, Rocket, MessageCircle, Database, BarChart, Headphones, GraduationCap, TrendingDown, Clock, AlertCircle, ThumbsUp, ChevronDown, Play } from "lucide-react";
 import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import ModalityCriteriaCard from "@/components/presentation/ModalityCriteriaCard";
@@ -141,10 +141,10 @@ const Landing = () => {
             <Button
               size="lg"
               onClick={() => setVoiceAssistantOpen(true)}
-              className="text-lg px-8 py-6 h-auto group relative overflow-hidden bg-primary/90 hover:bg-primary border-2 border-white/20 glow-effect"
+              className="text-lg px-8 py-6 h-auto group relative overflow-hidden bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 border-2 border-white/20 shadow-glow"
             >
-              <Mic className="mr-2 h-5 w-5" />
-              <span className="relative z-10">Demo com IA (Voz)</span>
+              <Play className="mr-2 h-5 w-5" />
+              <span className="relative z-10">▶️ Iniciar Tour Guiado</span>
             </Button>
           </motion.div>
 
@@ -759,7 +759,11 @@ const Landing = () => {
         }
       `}</style>
       
-      <VoiceAssistant open={voiceAssistantOpen} onOpenChange={setVoiceAssistantOpen} />
+      <VoiceAssistant 
+        open={voiceAssistantOpen} 
+        onOpenChange={setVoiceAssistantOpen}
+        mode="tour"
+      />
     </div>
   );
 };

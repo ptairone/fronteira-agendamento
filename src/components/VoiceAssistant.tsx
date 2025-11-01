@@ -1,82 +1,112 @@
-import { useState, useEffect, useRef } from 'react';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Mic, MicOff, X, Volume2 } from 'lucide-react';
-import { RealtimeChat } from '@/utils/RealtimeAudio';
-import { useToast } from '@/hooks/use-toast';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Phone, PhoneOff, Loader2, Play, Pause, SkipForward, SkipBack, MessageCircle } from "lucide-react";
+import { RealtimeChat } from "@/utils/RealtimeAudio";
+import { motion, AnimatePresence } from "framer-motion";
+import { MockupViewer } from "@/components/tour/MockupViewer";
+import { tourSteps, getTourDuration } from "@/utils/tourSteps";
+import { Progress } from "@/components/ui/progress";
 
 interface VoiceAssistantProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  mode?: "tour" | "chat";
 }
 
-export const VoiceAssistant = ({ open, onOpenChange }: VoiceAssistantProps) => {
+export const VoiceAssistant = ({ open, onOpenChange, mode = "chat" }: VoiceAssistantProps) => {
   const [isConnected, setIsConnected] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isListening, setIsListening] = useState(false);
-  const [transcript, setTranscript] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [transcript, setTranscript] = useState<Array<{ role: 'user' | 'assistant', text: string }>>([]);
   const chatRef = useRef<RealtimeChat | null>(null);
-  const { toast } = useToast();
+  
+  // Tour mode states
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(mode === "tour");
+  const [tourProgress, setTourProgress] = useState(0);
+  const [currentMode, setCurrentMode] = useState<"tour" | "chat">(mode);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleMessage = (event: any) => {
-    console.log('Event received:', event.type);
+    console.log('Received message:', event);
     
-    switch (event.type) {
-      case 'session.created':
-        console.log('Session created successfully');
-        break;
-        
-      case 'response.audio.delta':
-        setIsSpeaking(true);
-        break;
-        
-      case 'response.audio.done':
-        setIsSpeaking(false);
-        break;
-        
-      case 'conversation.item.input_audio_transcription.completed':
-        if (event.transcript) {
-          setTranscript(prev => [...prev, `Você: ${event.transcript}`]);
+    if (event.type === 'response.audio_transcript.delta') {
+      const delta = event.delta || '';
+      setTranscript(prev => {
+        const newTranscript = [...prev];
+        if (newTranscript.length > 0 && newTranscript[newTranscript.length - 1].role === 'assistant') {
+          newTranscript[newTranscript.length - 1].text += delta;
+        } else {
+          newTranscript.push({ role: 'assistant', text: delta });
         }
-        break;
-        
-      case 'response.audio_transcript.delta':
-        if (event.delta) {
-          setTranscript(prev => {
-            const newTranscript = [...prev];
-            const lastIndex = newTranscript.length - 1;
-            
-            if (lastIndex >= 0 && newTranscript[lastIndex].startsWith('Assistente:')) {
-              newTranscript[lastIndex] += event.delta;
-            } else {
-              newTranscript.push(`Assistente: ${event.delta}`);
-            }
-            
-            return newTranscript;
-          });
-        }
-        break;
-        
-      case 'input_audio_buffer.speech_started':
-        setIsListening(true);
-        break;
-        
-      case 'input_audio_buffer.speech_stopped':
-        setIsListening(false);
-        break;
-        
-      case 'error':
-        console.error('OpenAI error:', event.error);
-        toast({
-          title: "Erro",
-          description: event.error?.message || "Ocorreu um erro",
-          variant: "destructive",
-        });
-        break;
+        return newTranscript;
+      });
+    } else if (event.type === 'conversation.item.input_audio_transcription.completed') {
+      const userText = event.transcript || '';
+      if (userText.trim()) {
+        setTranscript(prev => [...prev, { role: 'user', text: userText }]);
+      }
+    } else if (event.type === 'response.audio.delta') {
+      setIsSpeaking(true);
+    } else if (event.type === 'response.audio.done') {
+      setIsSpeaking(false);
+      
+      // Auto advance tour if playing
+      if (currentMode === "tour" && isPlaying) {
+        if (timerRef.current) clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(() => {
+          handleNextStep();
+        }, 1500);
+      }
+    } else if (event.type === 'input_audio_buffer.speech_started') {
+      setIsListening(true);
+    } else if (event.type === 'input_audio_buffer.speech_stopped') {
+      setIsListening(false);
     }
   };
+
+  const handleNextStep = () => {
+    if (currentStepIndex < tourSteps.length - 1) {
+      setCurrentStepIndex(prev => prev + 1);
+    } else {
+      setIsPlaying(false);
+    }
+  };
+
+  const handlePreviousStep = () => {
+    if (currentStepIndex > 0) {
+      setCurrentStepIndex(prev => prev - 1);
+    }
+  };
+
+  const togglePlayPause = () => {
+    setIsPlaying(prev => !prev);
+  };
+
+  const switchToChat = () => {
+    setCurrentMode("chat");
+    setIsPlaying(false);
+    if (timerRef.current) clearTimeout(timerRef.current);
+  };
+
+  // Auto-send tour step narration when step changes
+  useEffect(() => {
+    if (currentMode === "tour" && isConnected && isPlaying && chatRef.current) {
+      const currentStep = tourSteps[currentStepIndex];
+      console.log('Sending tour step narration:', currentStep.narration);
+      chatRef.current.sendMessage(currentStep.narration);
+    }
+  }, [currentStepIndex, currentMode, isConnected, isPlaying]);
+
+  // Update progress
+  useEffect(() => {
+    if (currentMode === "tour") {
+      const progress = ((currentStepIndex + 1) / tourSteps.length) * 100;
+      setTourProgress(progress);
+    }
+  }, [currentStepIndex, currentMode]);
 
   const startConversation = async () => {
     try {
@@ -89,19 +119,8 @@ export const VoiceAssistant = ({ open, onOpenChange }: VoiceAssistantProps) => {
       await chatRef.current.init();
       
       setIsConnected(true);
-      setTranscript(['Assistente: Olá! Sou seu assistente virtual. Como posso demonstrar o sistema para você hoje?']);
-      
-      toast({
-        title: "Conectado",
-        description: "Assistente de voz pronto. Pode começar a falar!",
-      });
     } catch (error) {
       console.error('Error starting conversation:', error);
-      toast({
-        title: "Erro ao conectar",
-        description: error instanceof Error ? error.message : 'Não foi possível conectar ao assistente',
-        variant: "destructive",
-      });
     } finally {
       setIsLoading(false);
     }
@@ -116,132 +135,217 @@ export const VoiceAssistant = ({ open, onOpenChange }: VoiceAssistantProps) => {
   };
 
   useEffect(() => {
-    if (open && !isConnected && !isLoading) {
+    if (open) {
       startConversation();
+    } else {
+      endConversation();
+      if (timerRef.current) clearTimeout(timerRef.current);
     }
-    
-    return () => {
-      if (!open) {
-        endConversation();
-      }
-    };
   }, [open]);
+
+  const currentStep = tourSteps[currentStepIndex];
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl h-[80vh] p-0 overflow-hidden bg-gradient-to-br from-background to-background/95">
-        <div className="h-full flex flex-col">
-          {/* Header */}
-          <div className="px-6 py-4 border-b border-border/50 bg-background/50 backdrop-blur-sm flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="relative">
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                  isSpeaking ? 'bg-primary/20 animate-pulse' : 'bg-primary/10'
-                }`}>
-                  <Volume2 className={`w-6 h-6 ${isSpeaking ? 'text-primary' : 'text-primary/70'}`} />
-                </div>
-                {isSpeaking && (
-                  <motion.div
-                    className="absolute inset-0 rounded-full border-2 border-primary"
-                    animate={{ scale: [1, 1.3, 1], opacity: [0.8, 0, 0.8] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
-                )}
-              </div>
-              <div>
-                <h3 className="font-semibold text-lg">Assistente Virtual</h3>
-                <p className="text-sm text-muted-foreground">
-                  {isLoading ? 'Conectando...' : isConnected ? 'Online' : 'Offline'}
-                </p>
-              </div>
+      <DialogContent className="max-w-7xl max-h-[90vh] p-0 overflow-hidden">
+        <DialogHeader className="p-6 pb-4">
+          <DialogTitle className="flex items-center justify-between">
+            <span>
+              {currentMode === "tour" ? "Tour Guiado Interativo" : "Assistente Virtual de IA"}
+            </span>
+            <div className="flex items-center gap-2">
+              {currentMode === "tour" && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={switchToChat}
+                  className="text-xs"
+                >
+                  <MessageCircle className="h-3 w-3 mr-1" />
+                  Modo Livre
+                </Button>
+              )}
+              {isConnected && (
+                <span className="text-sm text-green-500 flex items-center gap-1">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  Conectado
+                </span>
+              )}
+              {isLoading && (
+                <span className="text-sm text-muted-foreground flex items-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Iniciando...
+                </span>
+              )}
             </div>
-            
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => onOpenChange(false)}
-              className="rounded-full"
-            >
-              <X className="w-5 h-5" />
-            </Button>
-          </div>
+          </DialogTitle>
+        </DialogHeader>
 
-          {/* Transcript Area */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4">
-            <AnimatePresence>
-              {transcript.map((message, index) => {
-                const isAssistant = message.startsWith('Assistente:');
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    className={`flex ${isAssistant ? 'justify-start' : 'justify-end'}`}
-                  >
-                    <div
-                      className={`max-w-[80%] p-4 rounded-2xl ${
-                        isAssistant
-                          ? 'bg-primary/10 text-foreground'
-                          : 'bg-primary text-primary-foreground'
-                      }`}
-                    >
-                      <p className="text-sm whitespace-pre-wrap">
-                        {message.replace(/^(Assistente:|Você:)\s*/, '')}
-                      </p>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </div>
-
-          {/* Status Bar */}
-          <div className="px-6 py-4 border-t border-border/50 bg-background/50 backdrop-blur-sm">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  {isListening ? (
-                    <Mic className="w-5 h-5 text-primary animate-pulse" />
-                  ) : (
-                    <MicOff className="w-5 h-5 text-muted-foreground" />
-                  )}
-                  <span className="text-sm text-muted-foreground">
-                    {isListening ? 'Ouvindo...' : isSpeaking ? 'Assistente falando...' : 'Aguardando...'}
+        <div className={`${currentMode === "tour" ? "grid grid-cols-2 gap-6 p-6" : "space-y-4 p-6"}`}>
+          {/* Tour Mode: Mockup Viewer */}
+          {currentMode === "tour" && (
+            <div className="h-[500px]">
+              <MockupViewer
+                currentStep={currentStepIndex}
+                mockupUrl={currentStep.mockupUrl}
+                highlights={currentStep.highlights}
+              />
+              
+              {/* Tour Progress */}
+              <div className="mt-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium">
+                    Passo {currentStepIndex + 1} de {tourSteps.length}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    {currentStep.title}
                   </span>
                 </div>
-                
-                {/* Audio Visualizer */}
-                {(isListening || isSpeaking) && (
-                  <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        className="w-1 bg-primary rounded-full"
-                        animate={{
-                          height: [4, 20, 4],
-                        }}
-                        transition={{
-                          duration: 0.8,
-                          repeat: Infinity,
-                          delay: i * 0.1,
-                        }}
-                      />
-                    ))}
-                  </div>
-                )}
+                <Progress value={tourProgress} className="h-2" />
               </div>
+            </div>
+          )}
+
+          {/* Transcript */}
+          <div className={`${currentMode === "tour" ? "h-[500px]" : "min-h-[300px] max-h-[400px]"} overflow-y-auto p-4 border rounded-lg bg-muted/30`}>
+            <AnimatePresence mode="popLayout">
+              {transcript.map((message, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className={`mb-3 ${
+                    message.role === 'user' 
+                      ? 'text-right' 
+                      : 'text-left'
+                  }`}
+                >
+                  <div
+                    className={`inline-block p-3 rounded-lg max-w-[80%] ${
+                      message.role === 'user'
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-secondary text-secondary-foreground'
+                    }`}
+                  >
+                    <p className="text-sm font-medium mb-1">
+                      {message.role === 'user' ? 'Você' : 'Assistente'}
+                    </p>
+                    <p className="text-sm whitespace-pre-wrap">{message.text}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+            
+            {transcript.length === 0 && !isLoading && (
+              <div className="flex items-center justify-center h-full text-muted-foreground">
+                <p className="text-center">
+                  {currentMode === "tour" 
+                    ? "Iniciando o tour guiado... Prepare-se para conhecer todas as funcionalidades!"
+                    : "Fale comigo! Estou aqui para demonstrar o aplicativo de gestão de clubes esportivos."
+                  }
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Tour Controls */}
+        {currentMode === "tour" && (
+          <div className="px-6 pb-4">
+            <div className="flex items-center justify-center gap-2">
+              <Button
+                onClick={handlePreviousStep}
+                variant="outline"
+                size="icon"
+                disabled={currentStepIndex === 0}
+              >
+                <SkipBack className="h-4 w-4" />
+              </Button>
               
               <Button
-                onClick={endConversation}
-                variant="destructive"
-                size="sm"
-                disabled={!isConnected}
+                onClick={togglePlayPause}
+                variant="default"
+                size="icon"
+                className="h-12 w-12"
               >
-                Encerrar Chamada
+                {isPlaying ? (
+                  <Pause className="h-5 w-5" />
+                ) : (
+                  <Play className="h-5 w-5" />
+                )}
+              </Button>
+              
+              <Button
+                onClick={handleNextStep}
+                variant="outline"
+                size="icon"
+                disabled={currentStepIndex === tourSteps.length - 1}
+              >
+                <SkipForward className="h-4 w-4" />
               </Button>
             </div>
           </div>
+        )}
+
+        {/* Status Bar */}
+        <div className="flex items-center justify-between p-4 mx-6 mb-6 border rounded-lg bg-background">
+          <div className="flex items-center gap-4">
+            {isListening && (
+              <div className="flex items-center gap-2">
+                <div className="flex gap-1">
+                  {[...Array(3)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="w-1 bg-primary rounded-full"
+                      animate={{
+                        height: [10, 20, 10],
+                      }}
+                      transition={{
+                        duration: 0.5,
+                        repeat: Infinity,
+                        delay: i * 0.1,
+                      }}
+                    />
+                  ))}
+                </div>
+                <span className="text-sm text-primary font-medium">Ouvindo...</span>
+              </div>
+            )}
+            {isSpeaking && (
+              <div className="flex items-center gap-2">
+                <div className="flex gap-1">
+                  {[...Array(3)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="w-1 bg-secondary rounded-full"
+                      animate={{
+                        height: [10, 20, 10],
+                      }}
+                      transition={{
+                        duration: 0.5,
+                        repeat: Infinity,
+                        delay: i * 0.1,
+                      }}
+                    />
+                  ))}
+                </div>
+                <span className="text-sm text-secondary-foreground font-medium">Falando...</span>
+              </div>
+            )}
+            {!isListening && !isSpeaking && isConnected && (
+              <span className="text-sm text-muted-foreground">Aguardando...</span>
+            )}
+          </div>
+          
+          <Button
+            onClick={endConversation}
+            variant="destructive"
+            size="sm"
+          >
+            <PhoneOff className="h-4 w-4 mr-2" />
+            Encerrar {currentMode === "tour" ? "Tour" : "Chamada"}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
