@@ -769,6 +769,13 @@ export const investment = {
         note: "Serviço de hospedagem VPS para manter o sistema funcionando 24/7"
       },
       {
+        platform: "Integração WhatsApp Business",
+        value: "R$ 200/mês",
+        type: "Mensalidade",
+        icon: "MessageSquare",
+        note: "Serviço para envio automático de mensagens e notificações via WhatsApp"
+      },
+      {
         platform: "Apple App Store (iOS)",
         value: "~R$ 650/ano",
         type: "Assinatura anual",
