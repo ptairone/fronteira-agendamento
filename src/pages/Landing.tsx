@@ -10,7 +10,7 @@ import PlatformCard from "@/components/presentation/PlatformCard";
 import WhatsAppIntegrationSection from "@/components/presentation/WhatsAppIntegrationSection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Phone, Mail, Smartphone, Info, CheckCircle2, CreditCard, Calendar, ShieldCheck, Code, TestTube, Rocket, MessageCircle, Database, BarChart, Headphones, GraduationCap, TrendingDown, Clock, AlertCircle, ThumbsUp, ChevronDown, Play } from "lucide-react";
+import { ArrowRight, Phone, Mail, Smartphone, Info, CheckCircle2, CreditCard, Calendar, ShieldCheck, Code, TestTube, Rocket, MessageCircle, Database, BarChart, Headphones, GraduationCap, TrendingDown, Clock, AlertCircle, ThumbsUp, ChevronDown, Play, Trophy, Sparkles, DollarSign } from "lucide-react";
 import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import ModalityCriteriaCard from "@/components/presentation/ModalityCriteriaCard";
@@ -128,7 +128,7 @@ const Landing = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-4 mb-6"
           >
             <Button
               size="lg"
@@ -145,6 +145,51 @@ const Landing = () => {
             >
               <Play className="mr-2 h-5 w-5" />
               <span className="relative z-10">▶️ Iniciar Tour Guiado</span>
+            </Button>
+          </motion.div>
+
+          {/* Quick Navigation Links */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.0 }}
+            className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-3xl"
+          >
+            <Button
+              variant="outline"
+              size="default"
+              onClick={() => document.getElementById("investment")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              className="glassmorphism border-white/30 text-white hover:bg-white/20 hover:text-white hover:border-white/50 transition-all"
+            >
+              <DollarSign className="mr-2 h-4 w-4" />
+              Investimento
+            </Button>
+            <Button
+              variant="outline"
+              size="default"
+              onClick={() => document.getElementById("modalities")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              className="glassmorphism border-white/30 text-white hover:bg-white/20 hover:text-white hover:border-white/50 transition-all"
+            >
+              <Trophy className="mr-2 h-4 w-4" />
+              Modalidades
+            </Button>
+            <Button
+              variant="outline"
+              size="default"
+              onClick={() => document.getElementById("whatsapp")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              className="glassmorphism border-white/30 text-white hover:bg-white/20 hover:text-white hover:border-white/50 transition-all"
+            >
+              <MessageCircle className="mr-2 h-4 w-4" />
+              WhatsApp
+            </Button>
+            <Button
+              variant="outline"
+              size="default"
+              onClick={() => document.getElementById("benefits")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              className="glassmorphism border-white/30 text-white hover:bg-white/20 hover:text-white hover:border-white/50 transition-all"
+            >
+              <Sparkles className="mr-2 h-4 w-4" />
+              Benefícios
             </Button>
           </motion.div>
 
@@ -238,8 +283,9 @@ const Landing = () => {
       </AnimatedSection>
 
       {/* Modalidades Suportadas */}
-      <AnimatedSection className="py-20 px-4 bg-background" delay={0.2}>
-        <div className="container mx-auto max-w-7xl">
+      <div id="modalities">
+        <AnimatedSection className="py-20 px-4 bg-background" delay={0.2}>
+          <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Modalidades do Clube</h2>
             <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -299,8 +345,9 @@ const Landing = () => {
               </div>
             </div>
           </div>
-        </div>
-      </AnimatedSection>
+          </div>
+        </AnimatedSection>
+      </div>
 
       {/* Critérios por Modalidade */}
       <AnimatedSection className="py-20 px-4 bg-accent/20" delay={0.2}>
@@ -380,7 +427,9 @@ const Landing = () => {
       </AnimatedSection>
 
       {/* Integração WhatsApp */}
-      <WhatsAppIntegrationSection {...whatsappIntegration} />
+      <div id="whatsapp">
+        <WhatsAppIntegrationSection {...whatsappIntegration} />
+      </div>
 
       {/* Demonstração Interativa */}
       <div id="demos">
@@ -453,8 +502,9 @@ const Landing = () => {
       </div>
 
       {/* Benefícios */}
-      <AnimatedSection className="py-20 px-4 bg-background" delay={0.2}>
-        <div className="container mx-auto max-w-7xl">
+      <div id="benefits">
+        <AnimatedSection className="py-20 px-4 bg-background" delay={0.2}>
+          <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Benefícios Comprovados</h2>
             <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -468,8 +518,9 @@ const Landing = () => {
               </AnimatedItem>
             ))}
           </div>
-        </div>
-      </AnimatedSection>
+          </div>
+        </AnimatedSection>
+      </div>
 
       {/* Casos de Uso */}
       <AnimatedSection className="py-20 px-4 bg-muted/50" delay={0.2}>
@@ -510,7 +561,7 @@ const Landing = () => {
       </AnimatedSection>
 
       {/* Investment and Budget Section */}
-      <section className="py-20 px-4 bg-gradient-to-br from-primary/5 via-background to-primary/5">
+      <section id="investment" className="py-20 px-4 bg-gradient-to-br from-primary/5 via-background to-primary/5">
         <div className="container mx-auto max-w-7xl">
           <div className="text-center mb-12">
             <div className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-primary/10 rounded-full mb-4">
