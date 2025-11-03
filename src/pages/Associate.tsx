@@ -45,12 +45,10 @@ const Associate = () => {
   useEffect(() => {
     const checkPriorityTime = () => {
       const now = new Date();
-      // Adjust to -03:00 timezone
-      const offset = -3 * 60;
-      const localOffset = now.getTimezoneOffset();
-      const targetOffset = offset - localOffset;
-      const adjustedDate = new Date(now.getTime() + targetOffset * 60 * 1000);
-      const hours = adjustedDate.getHours();
+      // Get UTC time and convert to Brasília time (UTC-3)
+      const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
+      const brasiliaTime = new Date(utcTime + (-3 * 3600000));
+      const hours = brasiliaTime.getUTCHours();
       
       // Priority time: 21:00 to 07:00
       const isPriority = hours >= 21 || hours < 7;

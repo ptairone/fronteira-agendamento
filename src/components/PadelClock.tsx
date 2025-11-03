@@ -19,18 +19,16 @@ export const PadelClock = ({ isPriorityTime }: PadelClockProps) => {
 
   // Format time in -03:00 timezone (Brasília)
   const formatTime = (date: Date) => {
-    // Adjust to -03:00 timezone
-    const offset = -3 * 60; // -180 minutes
-    const localOffset = date.getTimezoneOffset();
-    const targetOffset = offset - localOffset;
-    const adjustedDate = new Date(date.getTime() + targetOffset * 60 * 1000);
+    // Get UTC time and subtract 3 hours for Brasília (UTC-3)
+    const utcTime = date.getTime() + (date.getTimezoneOffset() * 60000);
+    const brasiliaTime = new Date(utcTime + (-3 * 3600000));
 
-    const hours = adjustedDate.getHours().toString().padStart(2, '0');
-    const minutes = adjustedDate.getMinutes().toString().padStart(2, '0');
-    const seconds = adjustedDate.getSeconds().toString().padStart(2, '0');
-    const day = adjustedDate.getDate().toString().padStart(2, '0');
-    const month = (adjustedDate.getMonth() + 1).toString().padStart(2, '0');
-    const year = adjustedDate.getFullYear();
+    const hours = brasiliaTime.getUTCHours().toString().padStart(2, '0');
+    const minutes = brasiliaTime.getUTCMinutes().toString().padStart(2, '0');
+    const seconds = brasiliaTime.getUTCSeconds().toString().padStart(2, '0');
+    const day = brasiliaTime.getUTCDate().toString().padStart(2, '0');
+    const month = (brasiliaTime.getUTCMonth() + 1).toString().padStart(2, '0');
+    const year = brasiliaTime.getUTCFullYear();
 
     return {
       time: `${hours}:${minutes}:${seconds}`,
