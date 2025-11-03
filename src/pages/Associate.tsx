@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import DemoBadge from "@/components/presentation/DemoBadge";
 import SportCard from "@/components/presentation/SportCard";
@@ -8,6 +8,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Calendar, Clock } from "lucide-react";
 import { toast } from "sonner";
 import { sports as sportsData, sportColors, mockReservations } from "@/data/mockData";
+import { PadelClock } from "@/components/PadelClock";
+import { PriorityQueueCard } from "@/components/PriorityQueueCard";
+import { ReservationTimer } from "@/components/ReservationTimer";
 
 const sports = sportsData.map(s => ({
   id: s.id,
@@ -29,10 +32,114 @@ const Associate = () => {
   const [selectedSport, setSelectedSport] = useState<string>("");
   const [selectedCourt, setSelectedCourt] = useState<string>("");
   const [reservedSlots, setReservedSlots] = useState<Set<string>>(new Set());
+  
+  // Priority queue states
+  const [isPriorityTime, setIsPriorityTime] = useState(false);
+  const [isInQueue, setIsInQueue] = useState(false);
+  const [queuePosition, setQueuePosition] = useState<number | null>(null);
+  const [totalInQueue, setTotalInQueue] = useState(0);
+  const [hasReservationSlot, setHasReservationSlot] = useState(false);
+  const [reservationTimer, setReservationTimer] = useState(60);
+
+  // Check if current time is in priority hours (21:00 - 07:00)
+  useEffect(() => {
+    const checkPriorityTime = () => {
+      const now = new Date();
+      // Adjust to -03:00 timezone
+      const offset = -3 * 60;
+      const localOffset = now.getTimezoneOffset();
+      const targetOffset = offset - localOffset;
+      const adjustedDate = new Date(now.getTime() + targetOffset * 60 * 1000);
+      const hours = adjustedDate.getHours();
+      
+      // Priority time: 21:00 to 07:00
+      const isPriority = hours >= 21 || hours < 7;
+      setIsPriorityTime(isPriority);
+    };
+
+    checkPriorityTime();
+    const interval = setInterval(checkPriorityTime, 60000); // Check every minute
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Simulate queue advancement
+  useEffect(() => {
+    if (!isInQueue || !queuePosition || hasReservationSlot) return;
+
+    const advanceInterval = setInterval(() => {
+      setQueuePosition((prev) => {
+        if (prev === null || prev <= 1) {
+          // It's your turn!
+          setHasReservationSlot(true);
+          setReservationTimer(60);
+          toast.success("É sua vez! Você tem 60 segundos para fazer sua reserva!", {
+            duration: 5000,
+          });
+          // Play notification sound
+          const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYHGGm98OScTgwOUKXh8bhmHgU7k9nyz3gsBS');
+          audio.volume = 0.3;
+          audio.play().catch(() => {}); // Ignore errors if audio doesn't play
+          return prev;
+        }
+        return prev - 1;
+      });
+    }, 12000); // Advance every 12 seconds
+
+    return () => clearInterval(advanceInterval);
+  }, [isInQueue, queuePosition, hasReservationSlot]);
+
+  // Countdown reservation timer
+  useEffect(() => {
+    if (!hasReservationSlot) return;
+
+    if (reservationTimer <= 0) {
+      handleTimeout();
+      return;
+    }
+
+    const countdown = setInterval(() => {
+      setReservationTimer((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(countdown);
+  }, [hasReservationSlot, reservationTimer]);
+
+  const handleJoinQueue = () => {
+    const randomPosition = Math.floor(Math.random() * 5) + 1;
+    const randomTotal = randomPosition + Math.floor(Math.random() * 8);
+    setQueuePosition(randomPosition);
+    setTotalInQueue(randomTotal);
+    setIsInQueue(true);
+    toast.success(`Você entrou na fila! Posição: ${randomPosition}º`);
+  };
+
+  const handleLeaveQueue = () => {
+    setIsInQueue(false);
+    setQueuePosition(null);
+    setHasReservationSlot(false);
+    setReservationTimer(60);
+    toast.info("Você saiu da fila");
+  };
+
+  const handleTimeout = () => {
+    toast.error("Tempo esgotado! Você voltou ao final da fila.", {
+      duration: 5000,
+    });
+    setHasReservationSlot(false);
+    setReservationTimer(60);
+    setQueuePosition((totalInQueue || 5) + 1);
+  };
 
   const handleSlotClick = (slot: string) => {
     if (!selectedSport || !selectedCourt) {
       toast.error("Selecione o esporte e a quadra primeiro");
+      return;
+    }
+
+    // Check if in priority time and it's Padel
+    if (isPriorityTime && selectedSport === "padel" && !hasReservationSlot) {
+      toast.error("Durante o horário de pico, você precisa estar na fila para reservar!");
       return;
     }
 
@@ -43,11 +150,24 @@ const Associate = () => {
     } else {
       newReserved.add(slot);
       toast.success(`Horário reservado: ${slot}`);
+      
+      // If it was a priority time reservation, complete the process
+      if (hasReservationSlot && isPriorityTime && selectedSport === "padel") {
+        setHasReservationSlot(false);
+        setIsInQueue(false);
+        setQueuePosition(null);
+        toast.success("Reserva concluída com sucesso! ✅", {
+          duration: 3000,
+        });
+      }
     }
     setReservedSlots(newReserved);
   };
 
   const selectedSportData = sports.find(s => s.id === selectedSport);
+  const isPadelSelected = selectedSport === "padel";
+  const showPriorityQueue = isPadelSelected && isPriorityTime;
+  const estimatedWaitMinutes = queuePosition ? (queuePosition - 1) * 2 : 0;
 
   return (
     <div className="min-h-screen bg-background">
@@ -60,6 +180,37 @@ const Associate = () => {
           </div>
           <DemoBadge />
         </div>
+
+        {/* Padel Clock - Only show for Padel */}
+        {isPadelSelected && (
+          <div className="mb-6">
+            <PadelClock isPriorityTime={isPriorityTime} />
+          </div>
+        )}
+
+        {/* Priority Queue Card - Only show during priority time for Padel */}
+        {showPriorityQueue && !hasReservationSlot && (
+          <div className="mb-6">
+            <PriorityQueueCard
+              queuePosition={queuePosition}
+              totalInQueue={totalInQueue}
+              estimatedWaitMinutes={estimatedWaitMinutes}
+              onJoinQueue={handleJoinQueue}
+              onLeaveQueue={handleLeaveQueue}
+              isInQueue={isInQueue}
+            />
+          </div>
+        )}
+
+        {/* Reservation Timer - Only show when it's user's turn */}
+        {hasReservationSlot && isPadelSelected && isPriorityTime && (
+          <div className="mb-6">
+            <ReservationTimer
+              timeRemaining={reservationTimer}
+              onTimeout={handleTimeout}
+            />
+          </div>
+        )}
 
         {/* Selection Cards */}
         <div className="grid gap-6 md:grid-cols-2 mb-8">
@@ -119,7 +270,7 @@ const Associate = () => {
         </div>
 
         {/* Time Slots */}
-        {selectedSport && selectedCourt && (
+        {selectedSport && selectedCourt && (!showPriorityQueue || hasReservationSlot) && (
           <Card className="shadow-lg">
             <CardHeader>
               <CardTitle>Horários Disponíveis</CardTitle>
