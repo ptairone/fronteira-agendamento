@@ -124,8 +124,11 @@ export const generatePresentationPDF = () => {
   doc.addPage();
   yPosition = 20;
   addSection('INVESTIMENTO E IMPLEMENTAÇÃO');
-  addText('Investimento Inicial: R$ 25.000', 12, true, [41, 128, 185]);
-  addText('Mensalidade: R$ 500/mês', 12, true, [41, 128, 185]);
+  addText('Investimento Inicial: R$ 14.000,00', 12, true, [41, 128, 185]);
+  addText('• Entrada: R$ 7.000,00 (50%)', 11);
+  addText('• Saldo: 4x de R$ 1.750,00 no cartão', 11);
+  yPosition += 5;
+  addText('Mensalidade: R$ 400,00/mês', 12, true, [41, 128, 185]);
   
   yPosition += 5;
   addText('O que está incluído:', 11, true);

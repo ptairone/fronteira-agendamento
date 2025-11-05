@@ -652,20 +652,20 @@ export const investment = {
   subtitle: "Transparência total sobre valores, prazos e condições de pagamento",
   
   pricing: {
-    total: "R$ 15.000,00",
-    totalNumeric: 15000,
+    total: "R$ 14.000,00",
+    totalNumeric: 14000,
     downPayment: {
       percentage: 50,
-      value: "R$ 7.500,00",
-      valueNumeric: 7500,
+      value: "R$ 7.000,00",
+      valueNumeric: 7000,
       description: "Entrada para início do projeto"
     },
     installments: {
       quantity: 4,
-      value: "R$ 1.875,00",
-      valueNumeric: 1875,
+      value: "R$ 1.750,00",
+      valueNumeric: 1750,
       description: "Parcelamento do saldo no cartão de crédito",
-      total: "R$ 7.500,00"
+      total: "R$ 7.000,00"
     }
   },
   
