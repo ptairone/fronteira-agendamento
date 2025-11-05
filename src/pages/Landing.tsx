@@ -10,7 +10,7 @@ import PlatformCard from "@/components/presentation/PlatformCard";
 import WhatsAppIntegrationSection from "@/components/presentation/WhatsAppIntegrationSection";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Phone, Mail, Smartphone, Info, CheckCircle2, CreditCard, Calendar, ShieldCheck, Code, TestTube, Rocket, MessageCircle, Database, BarChart, Headphones, GraduationCap, TrendingDown, Clock, AlertCircle, ThumbsUp, ChevronDown, Play, Trophy, Sparkles, DollarSign } from "lucide-react";
+import { ArrowRight, Phone, Mail, Smartphone, Info, CheckCircle2, CreditCard, Calendar, ShieldCheck, Code, TestTube, Rocket, MessageCircle, Database, BarChart, Headphones, GraduationCap, TrendingDown, Clock, AlertCircle, ThumbsUp, ChevronDown, Play, Trophy, Sparkles, DollarSign, Download } from "lucide-react";
 import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import ModalityCriteriaCard from "@/components/presentation/ModalityCriteriaCard";
@@ -23,6 +23,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import logo from "@/assets/logo.jpeg";
 import heroBg from "@/assets/hero-bg.jpg";
+import { generatePresentationPDF } from "@/utils/generatePDF";
 import {
   features,
   sports,
@@ -145,6 +146,15 @@ const Landing = () => {
             >
               <Play className="mr-2 h-5 w-5" />
               <span className="relative z-10">▶️ Iniciar Tour Guiado</span>
+            </Button>
+            <Button
+              size="lg"
+              onClick={generatePresentationPDF}
+              variant="outline"
+              className="text-lg px-8 py-6 h-auto group relative overflow-hidden glassmorphism border-white/30 text-white hover:bg-white/20 hover:text-white hover:border-white/50"
+            >
+              <Download className="mr-2 h-5 w-5" />
+              <span className="relative z-10">Baixar PDF</span>
             </Button>
           </motion.div>
 
